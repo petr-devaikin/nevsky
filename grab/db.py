@@ -3,9 +3,9 @@ from peewee import *
 db = SqliteDatabase('pictures.db')
 
 class Photo(Model):
-    insta_id = CharField()
-    thumb = CharField()
-    url = CharField()
+    insta_id = CharField(unique=True)
+    thumb = CharField(unique=True)
+    url = CharField(unique=True)
     username = CharField()
     insta_filter = CharField()
     date = DateTimeField()
@@ -13,12 +13,14 @@ class Photo(Model):
     longitude = DoubleField()
     latitude = DoubleField()
 
+    insta_step = IntegerField()
+
     class Meta:
         database = db
 
 
 class Tag(Model):
-    name = CharField()
+    name = CharField(unique=True)
 
     class Meta:
         database = db
@@ -27,6 +29,12 @@ class Tag(Model):
 class PhotoTag(Model):
     photo = ForeignKeyField(Photo, related_name='tags')
     tag = ForeignKeyField(Tag, related_name='photos')
+    
+    class Meta:
+        database = db
+        indexes = (
+            (('photo', 'tag'), True),
+        )
 
 
 if __name__ == '__main__':

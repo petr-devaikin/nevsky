@@ -8,6 +8,5 @@ setup(
     author_email='p.devaikin@gmail.com',
     include_package_data=True,
     zip_safe=False,
-    setup_requires=['Flask'],
     install_requires=['peewee', 'python-instagram']
 )
