@@ -5,9 +5,26 @@
 
         <link rel="stylesheet" type="text/css" href="css/main.css">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
-        <script src="js/main.js"></script>
+        <script src="js/require.js"></script>
+        <script>
+            var version = (new Date()).getTime();
+            requirejs.config({
+                baseUrl: "js",
+                urlArgs: "v=" + version,
+                paths: {
+                    'libs/d3': "d3.min",
+                },
+                //    jquery: 'jquery-2.1.1.min'
+                //},
+            });
+
+            require(['main'], function(main) {
+                main();
+            })
+        </script>
     </head>
     <body>
+        <div id="streetMap">
+        </div>
     </body>
 </html>

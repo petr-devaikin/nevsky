@@ -10,5 +10,5 @@ if __name__ == '__main__':
             steps[photo.insta_step] = []
         steps[photo.insta_step].append(photo.to_dict())
 
-    with open('data.json', 'w') as fp:
+    with open('../web/js/data.json', 'w') as fp:
         json.dump(steps, fp)
