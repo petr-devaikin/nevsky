@@ -1,4 +1,5 @@
 from peewee import *
+import calendar
 
 db = SqliteDatabase('pictures.db')
 
@@ -15,11 +16,11 @@ class Photo(Model):
 
     insta_step = IntegerField()
 
-    def to_dict():
+    def to_dict(self):
         return {
-            thumb: CharField(unique=True),
-            url: CharField(unique=True),
-            date: DateTimeField(),
+            'thumb': self.thumb,
+            'url': self.url,
+            'date': calendar.timegm(self.date.timetuple()),
         }
 
     class Meta:
