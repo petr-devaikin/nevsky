@@ -15,6 +15,13 @@ class Photo(Model):
 
     insta_step = IntegerField()
 
+    def to_dict():
+        return {
+            thumb: CharField(unique=True),
+            url: CharField(unique=True),
+            date: DateTimeField(),
+        }
+
     class Meta:
         database = db
 

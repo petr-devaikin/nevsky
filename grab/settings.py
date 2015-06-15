@@ -1,5 +1,6 @@
 import datetime
 import os
+import secret
 
 street = {
     'points': [
@@ -13,18 +14,18 @@ street = {
     ],
 }
 
-street_weight = 100 #meters
+street_width = 100 #meters
 
 insta_step = 100 #meters
 insta_radius = 70.711
 
 period = {
     'start': datetime.datetime(2014, 6, 6),
-    'end': datetime.datetime(2014, 6, 7),
+    'end': datetime.datetime(2014, 6, 8),
 }
 
 
 insta_auth = {
-    'client_id': os.environ['INSTA_ID'] if 'INSTA_ID' in os.environ else '2775c50391b44bf98054224e7a10f923',
-    'client_secret': os.environ['INSTA_SECRET'],
+    'client_id': os.environ['INSTA_ID'] if 'INSTA_ID' in os.environ else secret.insta_id,
+    'client_secret': os.environ['INSTA_SECRET'] if 'INSTA_SECRET' in os.environ else secret.insta_secret,
 }
