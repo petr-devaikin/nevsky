@@ -1,0 +1,11 @@
+#streetMap {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+#streetMap svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
