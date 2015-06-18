@@ -1,4 +1,4 @@
-define(['libs/d3'], function(d3) {
+define(['libs/d3', 'drawing/street', 'drawing/steps'], function(d3, drawingStreet, drawingSteps) {
     return function() {
         var map = d3.select('#streetMap');
 
@@ -9,7 +9,7 @@ define(['libs/d3'], function(d3) {
                 steps[s] = data[s];
 
             console.log(steps);
-
+            return;
             map.selectAll('.step')
                     .data(steps)
                 .enter()
@@ -17,5 +17,8 @@ define(['libs/d3'], function(d3) {
                     .classed('step', true)
                     .text(function(d) { return d.length; });
         });
+
+        drawingStreet.draw();
+        drawingSteps.draw();
     }
 })
