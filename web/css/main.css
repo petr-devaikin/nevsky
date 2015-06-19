@@ -75,14 +75,14 @@ svg .step rect {
 #hourPhotos {
     position: relative;
     background: #eee;
-    height: 650px;
+    height: 700px;
     margin-bottom: 10px;
 }
 
 #weekPhotos {
     position: relative;
     background: #eee;
-    height: 340px;
+    height: 450px;
     margin-bottom: 10px;
 }
 
@@ -95,19 +95,19 @@ svg .step rect {
 
 .photos .hour {
     position: relative;
-    height: 26px;
+    height: 55px;
 }
 
 .photos .weekDay {
     position: relative;
-    height: 60px;
+    height: 80px;
 }
 
 .smallPhoto {
     position: relative;
     float: left;
-    width: 1px;
-    height: 1px;
+    width: 2px;
+    height: 2px;
     margin: 0 1px 1px 0;
     background: red;
 }

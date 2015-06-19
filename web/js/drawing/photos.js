@@ -44,8 +44,10 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
 
         hourPhotosSteps.each(function (d) {
             var hours = [];
-            for (var i = 0; i < 24; i++) {
-                hours[i] = d.filter(function(p) { return (new Date(p.date * 1000)).getHours() == i; });
+            for (var i = 0; i < 12; i++) {
+                hours[i] = d.filter(function(p) {
+                    return Math.floor((new Date(p.date * 1000)).getHours() / 2) == i;
+                });
             }
             console.log(hours);
 
