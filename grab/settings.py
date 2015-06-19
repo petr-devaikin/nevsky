@@ -23,7 +23,7 @@ insta_radius = 70.711
 timezone = pytz.timezone('Europe/Moscow')
 
 period = {
-    'start': datetime.datetime(2014, 6, 6),
+    'start': datetime.datetime(2014, 6, 1),
     'end': datetime.datetime(2014, 6, 8),
 }
 
