@@ -1,7 +1,7 @@
 define({
     streetLength: 3060.0 + 1338.0,
     stepLength: 100,
-    streetWidth: 1000,
+    streetWidth: 1200,
     landmarks: [
         {
             km: 0,

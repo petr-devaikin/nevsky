@@ -2,6 +2,7 @@ from instagram.client import InstagramAPI
 from instagram.bind import InstagramAPIError
 import settings
 import calendar
+import time
 import re
 import peewee
 
@@ -24,7 +25,7 @@ def grab_photos(lat, lng):
             lat=lat,
             lng=lng,
             distance=settings.insta_radius,
-            max_timestamp=calendar.timegm(max_time.timetuple()),
+            max_timestamp=time.mktime(max_time.timetuple()),
             count=100
         )
 

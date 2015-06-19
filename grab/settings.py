@@ -1,6 +1,7 @@
 import datetime
 import os
 import secret
+import pytz
 
 street = {
     'points': [
@@ -18,6 +19,8 @@ street_width = 100 #meters
 
 insta_step = 100 #meters
 insta_radius = 70.711
+
+timezone = pytz.timezone('Europe/Moscow')
 
 period = {
     'start': datetime.datetime(2014, 6, 6),
