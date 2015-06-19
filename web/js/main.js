@@ -3,22 +3,13 @@ define(['libs/d3', 'drawing/street', 'drawing/steps', 'drawing/photos'],
     return function() {
         var map = d3.select('#streetMap');
 
-        d3.json("js/data.json", function(data) { 
+        d3.json("js/data.json?v=" + (new Date()).getTime(), function(data) { 
             var steps = [];
             for (var s in data)
                 steps[s] = data[s];
-            
+
             drawingPhotos.draw(steps);
             drawingSteps.draw();
-
-            console.log(steps);
-            return;
-            map.selectAll('.step')
-                    .data(steps)
-                .enter()
-                    .append('div')
-                    .classed('step', true)
-                    .text(function(d) { return d.length; });
         });
 
         drawingStreet.draw();

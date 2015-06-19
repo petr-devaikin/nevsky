@@ -19,11 +19,10 @@ class Photo(Model):
     insta_step = IntegerField()
 
     def to_dict(self):
-        t = pytz.utc.localize(self.date, is_dst=None).astimezone(settings.timezone)
         return {
             'thumb': self.thumb,
             'url': self.url,
-            'date': calendar.timegm(t.timetuple()),
+            'date': calendar.timegm(self.date.timetuple()),
         }
 
     class Meta:

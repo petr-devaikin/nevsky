@@ -7,6 +7,7 @@ define(['libs/d3', 'constants'], function(d3, constants) {
         streetContainer: d3.select('#streetMap svg'),
         allPhotosContainer: d3.select('#allPhotos'),
         hourPhotosContainer: d3.select('#hourPhotos'),
+        weekPhotosContainer: d3.select('#weekPhotos'),
         scale: scale,        
     }
 });
