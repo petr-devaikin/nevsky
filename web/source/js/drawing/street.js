@@ -2,6 +2,8 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
     function drawStreetView() {
         basics.streetContainer.selectAll('#streetLine line')
             .attr('x2', basics.scale(constants.streetLength));
+        basics.streetContainer.selectAll('#streetLine rect')
+            .attr('width', basics.scale(constants.streetLength));
 
         drawLandmark();
     }
@@ -49,18 +51,25 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
     
 
     function drawMetro(obj) {
-        obj.append('text')
-            .attr('y', 10)
+        var group = obj.append('g');
+        group.append('text')
+            .classed('metro-sign', true)
             .text('M');
+        group.append('text')
+            .attr('x', 20)
+            .classed('metro-name', true)
+            .text(function(d) {return d.name; });
+
+        group.attr('transform', 'translate(0,-15)')
     }
     
 
     function drawRiver(obj) {
-        obj.append('rect')
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('width', 5)
-            .attr('height', 20);
+        obj.append('line')
+            .attr('x1', 0)
+            .attr('y1', -40)
+            .attr('x2', 0)
+            .attr('y2', 40);
     }
 
     function drawBuilding(obj) {

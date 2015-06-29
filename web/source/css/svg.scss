@@ -1,25 +1,44 @@
 $streetColor: #888;
+$riverColor: rgb(81, 175, 232);
+
+$metroSignColor: blue;
+$metroNameColor: #888;
 
 svg {
+    font-family: Arial;
+    font-weight: normal;
+    
     #streetLine {
-        stroke: $streetColor;
-        stroke-width: 1;
+        line {
+            stroke: $streetColor;
+            stroke-width: 1;
+        }
+
+        rect {
+            stroke: none;
+            fill: #fff;
+        }
     }
 
     .street {
         stroke: $streetColor;
-        stroke-width: 1;
+        stroke-width: 2;
     }
 
     .river {
-        stroke: #000;
-        stroke-width: 1;
-        fill: blue;
+        stroke: $riverColor;
+        stroke-width: 2;
     }
 
     .metro {
-        stroke: blue;
-        font-size: 16px;
+        .metro-sign {
+            stroke: $metroSignColor;
+            font-size: 16px;
+        }
+        .metro-name {
+            stroke: $metroNameColor;
+            font-size: 12px;
+        }
     }
 
     .building {
