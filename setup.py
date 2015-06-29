@@ -8,5 +8,5 @@ setup(
     author_email='p.devaikin@gmail.com',
     include_package_data=True,
     zip_safe=False,
-    install_requires=['peewee', 'python-instagram', 'pytz']
+    install_requires=['peewee', 'python-instagram', 'pytz', 'requests', 'pillow']
 )

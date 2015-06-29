@@ -13,6 +13,8 @@ class Photo(Model):
     insta_filter = CharField()
     date = DateTimeField()
 
+    color = CharField(null=True)
+
     longitude = DoubleField()
     latitude = DoubleField()
 
@@ -20,6 +22,8 @@ class Photo(Model):
 
     def to_dict(self):
         return {
+            'id': self.insta_id,
+            'color': self.color.split(','),
             'thumb': self.thumb,
             'url': self.url,
             'date': calendar.timegm(self.date.timetuple()),

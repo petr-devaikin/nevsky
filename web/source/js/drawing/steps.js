@@ -19,15 +19,10 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
             .attr('height', 100);
 
 
-        /*var allPhotosSteps = basics.allPhotosContainer.selectAll('.step')
-                .data(steps)
-            .enter().append('div')
-                .classed('step', true)
-                .style('left', function(g) {
-                    return basics.scale(g * constants.stepLength) + 'px';
-                })
-                .style('width', constants.stepLength / constants.streetLength * constants.streetWidth + 'px');
-        */
+        var allPhotosSteps = basics.allPhotosContainer.selectAll('.day').append('div')
+                .classed('step', true);
+        allPhotosSteps.data(steps);
+        
 
         d3.selectAll('.step')
             .on('mouseover', function(d) {

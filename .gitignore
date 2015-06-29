@@ -1,4 +1,6 @@
 venv/
+web/source/img/insta/
+web/node_modules/
 
 grab/*.db
 

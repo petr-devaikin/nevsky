@@ -3,7 +3,7 @@
     <head>
         <title>Nevsky</title>
 
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
         <script src="js/require.js"></script>
         <script>
@@ -26,8 +26,13 @@
     <body>
         <div id="streetMap">
             <svg>
-                <rect id="streetLine" x="0" y="0" width="400" height="10" />
-                <g id="landmarks"></g>
+                <g id="container" transform="translate(0, 50)">
+                    <g id="streetLine">
+                        <line x1="0" y1="-5" x2="100%" y2="-5" />
+                        <line x1="0" y1="5" x2="100%" y2="5" />
+                    </g>
+                    <g id="landmarks"></g>
+                </g>
                 <g id="steps"></g>
             </svg>
         </div>

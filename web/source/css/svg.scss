@@ -1,0 +1,55 @@
+$streetColor: #888;
+
+svg {
+    #streetLine {
+        stroke: $streetColor;
+        stroke-width: 1;
+    }
+
+    .street {
+        stroke: $streetColor;
+        stroke-width: 1;
+    }
+
+    .river {
+        stroke: #000;
+        stroke-width: 1;
+        fill: blue;
+    }
+
+    .metro {
+        stroke: blue;
+        font-size: 16px;
+    }
+
+    .building {
+        stroke: #000;
+        stroke-width: 1;
+        fill: gray;
+    }
+
+    .park {
+        stroke: #000;
+        stroke-width: 1;
+        fill: green;
+    }
+
+    .square {
+        stroke: #000;
+        stroke-width: 1;
+        fill: silver;
+    }
+
+    .step {
+        opacity: 0;
+        
+        &.hovered {
+            opacity: 0.2;
+        }
+
+        rect {
+            stroke: none;
+            fill: #000;
+        }
+    }
+}

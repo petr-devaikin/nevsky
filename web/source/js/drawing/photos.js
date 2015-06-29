@@ -8,9 +8,6 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
     function setDayParams(selection) {
         selection
             .classed('day', true)
-            .style('left', function(g, i) {
-                return basics.scale(i * constants.stepLength) + 'px';
-            })
             .style('width', constants.stepLength / constants.streetLength * constants.streetWidth + 'px');
     }
 
@@ -24,6 +21,12 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
             .classed('weekDay', true);
     }
 
+    function setSmallPhoto(selection) {
+        selection
+            .classed('smallPhoto', true)
+            .style('background-color', function(d) { return 'rgb(' + d.color.join(',') + ')'; });
+    }
+
     function drawAllPhotos(data) {
         var allPhotosSteps = basics.allPhotosContainer.selectAll('.day')
                 .data(data)
@@ -33,7 +36,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
         allPhotosSteps.selectAll('.smallPhoto')
                 .data(function(d) { return d; })
             .enter().append('div')
-                .classed('smallPhoto', true);
+                .call(setSmallPhoto);
     }
 
     function drawHourPhotos(data) {
@@ -59,7 +62,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
             hourBlocks.selectAll('.smallPhoto')
                     .data(function(d) { return d; })
                 .enter().append('div')
-                    .classed('smallPhoto', true);
+                    .call(setSmallPhoto);
         });
     }
 
@@ -72,7 +75,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
         weekPhotosSteps.each(function (d) {
             var days = [];
             for (var i = 0; i < 7; i++) {
-                days[i] = d.filter(function(p) { return (new Date(p.date * 1000)).getDay() - 1 % 7 == i; });
+                days[i] = d.filter(function(p) { return (new Date(p.date * 1000)).getDay() == (i + 1) % 7; });
             }
 
             var dayBlocks = d3.select(this).selectAll('.weekDay')
@@ -83,7 +86,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
             dayBlocks.selectAll('.smallPhoto')
                     .data(function(d) { return d; })
                 .enter().append('div')
-                    .classed('smallPhoto', true);
+                    .call(setSmallPhoto);
         });
     }
 

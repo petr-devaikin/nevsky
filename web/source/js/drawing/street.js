@@ -1,7 +1,7 @@
 define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basics) {
     function drawStreetView() {
-        basics.streetContainer.select('#streetLine')
-            .attr('width', basics.scale(constants.streetLength));
+        basics.streetContainer.selectAll('#streetLine line')
+            .attr('x2', basics.scale(constants.streetLength));
 
         drawLandmark();
     }
@@ -10,7 +10,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
         var landmarks = basics.streetContainer.select('#landmarks').selectAll('.landmark')
                 .data(constants.landmarks)
             .enter().append('g')
-                .classed('.landmark', true);
+                .classed('landmark', true);
 
         landmarks.each(function(d) {
             var obj = d3.select(this);
@@ -35,16 +35,16 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
                     break;
             }
             obj.classed(d.type, true);
-            obj.attr('transform', 'translate(' + basics.scale(d.km) + ',10)');
+            obj.attr('transform', 'translate(' + basics.scale(d.km) + ',0)');
         });
     }
 
     function drawStreet(obj) {
-        obj.append('rect')
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('width', 5)
-            .attr('height', 20);
+        obj.append('line')
+            .attr('x1', 0)
+            .attr('y1', -40)
+            .attr('x2', 0)
+            .attr('y2', 40);
     }
     
 
