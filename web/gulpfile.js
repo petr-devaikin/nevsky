@@ -23,7 +23,7 @@ gulp.task('css', function () {
 
 
 gulp.task('js', function () {
-    gulp.src(['source/js/**/*.js'])
+    gulp.src(['./source/js/**/*.js'])
         //.pipe(concat('app.js'))
         //.pipe(uglify())
         .pipe(gulp.dest('./public/js'))
@@ -31,8 +31,15 @@ gulp.task('js', function () {
 });
 
 
+gulp.task('img', function () {
+    gulp.src(['./source/img/*.*'])
+        .pipe(gulp.dest('./public/img'))
+        .pipe(browserSync.reload({ stream: true }));
+});
+
+
 gulp.task('data', function () {
-    gulp.src(['source/js/*.json'])
+    gulp.src(['./source/js/*.json'])
         .pipe(gulp.dest('./public/js'))
         .pipe(browserSync.reload({ stream: true }));
 });
@@ -54,13 +61,14 @@ gulp.task('public', function(callback) {
             'css',
             'js',
             'data',
+            'img',
         ],
         'html',
         callback);
 });
 
 
-gulp.task('serve', ['html', 'js', 'css', 'data'], function () {
+gulp.task('serve', ['html', 'js', 'css', 'data', 'img'], function () {
     browserSync({
         server: {
             baseDir: './public'
@@ -70,5 +78,6 @@ gulp.task('serve', ['html', 'js', 'css', 'data'], function () {
     gulp.watch('./source/js/**/*.js', ['js'])
     gulp.watch('./source/js/*.json', ['data'])
     gulp.watch('./source/css/*.scss', ['css'])
+    gulp.watch('./source/img/*.*', ['img'])
     gulp.watch('./source/index.html', ['html'])
 });

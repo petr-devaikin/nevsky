@@ -4,7 +4,7 @@ define(['libs/d3', 'constants'], function(d3, constants) {
         .range([0, constants.streetWidth]);
 
     return {
-        streetContainer: d3.select('#streetMap svg'),
+        streetContainer: d3.select('#street-map__inner'),
         allPhotosContainer: d3.select('#allPhotos'),
         hourPhotosContainer: d3.select('#hourPhotos'),
         weekPhotosContainer: d3.select('#weekPhotos'),

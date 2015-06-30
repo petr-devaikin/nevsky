@@ -24,18 +24,13 @@
         </script>
     </head>
     <body>
-        <div id="streetMap">
-            <svg>
-                <g id="container" transform="translate(0, 50)">
-                    <g id="streetLine">
-                        <rect x="0" y="-5" width="100%" height="10" />
-                        <line x1="0" y1="-5" x2="100%" y2="-5" />
-                        <line x1="0" y1="5" x2="100%" y2="5" />
-                    </g>
-                    <g id="landmarks"></g>
-                </g>
-                <g id="steps"></g>
-            </svg>
+        <div id="street-map">
+            <div id="street-map__inner">
+                <div id="street-line"></div>
+                <div id="landmarks"></div>
+            </div>
+            <div id="steps"></div>
+            </div>
         </div>
 
         <div id="allPhotos" class="photos">

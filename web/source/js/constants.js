@@ -5,23 +5,28 @@ define({
     landmarks: [
         {
             km: 0,
-            name: 'Адмиралтейский пр-т',
-            type: 'street',
+            name: 'Дворцовая пл.',
+            type: 'square',
         },
         {
             km: 171,
             name: 'Адмиралтейская',
             type: 'metro',
+            width: 20,
         },
         {
             km: 412,
             name: 'Мойка',
             type: 'river',
+            width: 33,
         },
         {
             km: 556,
             name: 'Большая Конюшенская ул.',
             type: 'street',
+            width: 22.7,
+            position: 'top',
+            doubled: true,
         },
         {
             km: 779,
@@ -32,14 +37,25 @@ define({
             km: 798,
             name: 'Канал Грибоедова',
             type: 'river',
+            width: 18,
         },
         {
             km: 1030,
             name: 'Думская ул.',
             type: 'street',
+            width: 27.2,
+            position: 'bottom',
+            doubled: true,
         },
         {
             km: 1030,
+            name: 'Михайловская ул.',
+            type: 'street',
+            width: 12.2,
+            position: 'top',
+        },
+        {
+            km: 950,
             name: 'Невский проспект',
             type: 'metro',
         },
@@ -52,6 +68,8 @@ define({
             km: 1300,
             name: 'Садовая ул.',
             type: 'street',
+            width: 10.9,
+            position: 'both',
         },
         {
             km: 1430,
@@ -62,11 +80,21 @@ define({
             km: 1780,
             name: 'Фонтанка',
             type: 'river',
+            width: 52,
         },
         {
             km: 2040,
             name: 'Владимерский пр-т',
             type: 'street',
+            width: 12.7,
+            position: 'bottom',
+        },
+        {
+            km: 2040,
+            name: 'Литейный пр-т',
+            type: 'street',
+            width: 12.7,
+            position: 'top',
         },
         {
             km: 2470,
@@ -76,7 +104,8 @@ define({
         {
             km: 2840,
             name: 'Площадь Восстания',
-            type: 'street',
+            type: 'metro',
+            top: true,
         },
         {
             km: 2840,
@@ -87,16 +116,21 @@ define({
             km: 3060,
             name: 'Суворовский пр-т',
             type: 'street',
+            width: 16.3,
+            position: 'top',
         },
         {
-            km: 2930,
+            km: 3930,
             name: 'Исполкомская ул.',
             type: 'street',
+            width: 12.2,
+            position: 'top',
         },
         {
             km: 3060.0 + 1338.0,
             name: 'Александра Невского',
             type: 'metro',
+            top: true,
         },
         {
             km: 3060.0 + 1338.0,

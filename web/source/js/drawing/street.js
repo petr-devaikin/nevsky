@@ -1,9 +1,7 @@
 define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basics) {
     function drawStreetView() {
-        basics.streetContainer.selectAll('#streetLine line')
-            .attr('x2', basics.scale(constants.streetLength));
-        basics.streetContainer.selectAll('#streetLine rect')
-            .attr('width', basics.scale(constants.streetLength));
+        basics.streetContainer
+            .style('width', basics.scale(constants.streetLength) + 'px');
 
         drawLandmark();
     }
@@ -11,7 +9,7 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
     function drawLandmark() {
         var landmarks = basics.streetContainer.select('#landmarks').selectAll('.landmark')
                 .data(constants.landmarks)
-            .enter().append('g')
+            .enter().append('div')
                 .classed('landmark', true);
 
         landmarks.each(function(d) {
@@ -37,63 +35,67 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
                     break;
             }
             obj.classed(d.type, true);
-            obj.attr('transform', 'translate(' + basics.scale(d.km) + ',0)');
+            obj.style('left', basics.scale(d.km) + 'px');
         });
     }
 
+    function setWidth(selection) {
+        selection.style('width', function(d) {
+            return d.width / constants.streetLength * constants.streetWidth + 'px';
+        });
+        selection.style('margin-left', function(d) {
+            return - d.width / constants.streetLength * constants.streetWidth / 2 + 'px';
+        });
+    }
+
+    function addName(selection) {
+        selection.append('span')
+            .classed('name', true)
+            .text(function(d) { return d.name; });
+    }
+
     function drawStreet(obj) {
-        obj.append('line')
-            .attr('x1', 0)
-            .attr('y1', -40)
-            .attr('x2', 0)
-            .attr('y2', 40);
+        obj.call(setWidth);
+
+        if (obj.datum().position == 'top' || obj.datum().position == 'both')
+            obj.append('div')
+                .classed('street__part--top', true)
+                .classed('street__part', true);
+        if (obj.datum().position == 'bottom' || obj.datum().position == 'both')
+            obj.append('div')
+                .classed('street__part--bottom', true)
+                .classed('street__part', true);
+
+        obj.classed('street--bottom', function(d) { return d.position == 'bottom'; })
+
+        obj.call(addName);
     }
     
 
     function drawMetro(obj) {
-        var group = obj.append('g');
-        group.append('text')
-            .classed('metro-sign', true)
-            .text('M');
-        group.append('text')
-            .attr('x', 20)
+        obj.append('div')
+            .classed('metro-sign', true);
+        obj.append('div')
             .classed('metro-name', true)
             .text(function(d) {return d.name; });
 
-        group.attr('transform', 'translate(0,-15)')
+        obj.classed('metro--top', function(d) { return d.top; })
     }
     
 
     function drawRiver(obj) {
-        obj.append('line')
-            .attr('x1', 0)
-            .attr('y1', -40)
-            .attr('x2', 0)
-            .attr('y2', 40);
+        obj.call(setWidth);
+        obj.call(addName);
     }
 
     function drawBuilding(obj) {
-        obj.append('rect')
-            .attr('x', 0)
-            .attr('y', 20)
-            .attr('width', 10)
-            .attr('height', 10);
     }
 
     function drawPark(obj) {
-        obj.append('rect')
-            .attr('x', 0)
-            .attr('y', 20)
-            .attr('width', 10)
-            .attr('height', 10);
+        obj.call(addName);
     }
 
     function drawSquare(obj) {
-        obj.append('rect')
-            .attr('x', 0)
-            .attr('y', 20)
-            .attr('width', 10)
-            .attr('height', 10);
     }
 
     return {
