@@ -8,7 +8,21 @@ $parkColor: rgb(195, 229, 195);
 $parkTextColor: darken($parkColor, 15);
 $squareColor: #eee;
 
-#street-map__inner {    
+$nevskyWidth: 8px;
+$mapHeight: 100px;
+
+#street-map {
+    .step {
+        opacity: 0;
+        background: #000;
+        
+        &.hovered {
+            opacity: 0.2;
+        }
+    }
+}
+
+#street-map__inner { 
     #street-line {
         position: relative;
         width: 100%;
@@ -18,6 +32,14 @@ $squareColor: #eee;
         top: 50%;
         margin-top: -3px;
         background: $streetBackgroundColor;
+    }
+
+    #landmarks {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     .landmark {
@@ -39,8 +61,7 @@ $squareColor: #eee;
     }
 
     .street {
-        top: 10px;
-        bottom: 10px;
+        height: 100%;
         width: 3px;
         
         z-index: 1;
@@ -49,7 +70,7 @@ $squareColor: #eee;
             box-sizing: border-box;
             position: absolute;
             width: 100%;
-            height: 38px;
+            height: ($mapHeight - $nevskyWidth) / 2;
             
             background: $streetBackgroundColor;
             border-left: 1px solid $streetColor;
@@ -77,9 +98,8 @@ $squareColor: #eee;
     }
 
     .river {
-        top: 10px;
-        bottom: 10px;
         width: 3px;
+        height: 100%;
         
         z-index: 2;
         
@@ -87,7 +107,7 @@ $squareColor: #eee;
             box-sizing: border-box;
             position: absolute;
             width: 100%;
-            height: 38px;
+            height: ($mapHeight - $nevskyWidth) / 2;
             
             background: $riverColor;
         }
@@ -158,18 +178,5 @@ $squareColor: #eee;
         width: 30px;
         height: 30px;
         background: $squareColor;
-    }
-
-    .step {
-        opacity: 0;
-        
-        &.hovered {
-            opacity: 0.2;
-        }
-
-        rect {
-            stroke: none;
-            fill: #000;
-        }
     }
 }

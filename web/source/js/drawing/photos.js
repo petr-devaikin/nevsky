@@ -1,5 +1,9 @@
 define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basics) {
     function drawPhotos(data) {
+        d3.selectAll('.photos')
+            .style('width', basics.scale(constants.streetLength) + 'px');
+
+
         drawAllPhotos(data);
         drawHourPhotos(data);
         drawWeekPhotos(data);
