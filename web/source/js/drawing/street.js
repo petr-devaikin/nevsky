@@ -86,6 +86,13 @@ define(['libs/d3', 'constants', 'drawing/basics'], function(d3, constants, basic
     function drawRiver(obj) {
         obj.call(setWidth);
         obj.call(addName);
+
+        obj.append('div')
+            .classed('street__part', true)
+            .classed('street__part--top', true);
+        obj.append('div')
+            .classed('street__part', true)
+            .classed('street__part--bottom', true);
     }
 
     function drawBuilding(obj) {
