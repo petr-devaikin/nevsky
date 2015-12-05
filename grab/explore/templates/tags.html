@@ -1,0 +1,9 @@
+<html>
+    <head></head>
+    <body>
+        <a href="{{ url_for('photos') }}">{{ empty }} &mdash; /no hashtag/<a/><br/>
+        {% for tag in tags %}
+            <a href="{{ url_for('photos', hashtag_id=tag.id) }}">{{ tag.count }} &mdash; {{ tag.name }}</a><br />
+        {% endfor %}
+    </body>
+</html>

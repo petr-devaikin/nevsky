@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <style>
+            div {
+                width: 150px;
+                display: block;
+                margin: 5px;
+                border: 1px solid #eee;
+                font-size: 12px;
+                font-family: Arial;
+                position: relative;
+                float: left;
+            }
+
+            div img {
+                width: 150px;
+                height: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>{{ tag if tag != None else '/no hashtag/' }} &mdash; {{ photos.count() }}</h1>
+        {% for p in photos %}
+            <div>
+                <img src="{{ p.photo.thumb }}"/>
+                {% for ph in p.photo.tags %}
+                    <a href="{{ url_for('photos', hashtag_id=ph.tag.id) }}">
+                        {{ ph.tag.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </body>
+</html>

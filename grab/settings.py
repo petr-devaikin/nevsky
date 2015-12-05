@@ -1,34 +1,24 @@
 import datetime
 import os
-import secret
 import pytz
 
-street = {
-    'points': [
-        [59.937035, 30.312616],
-        [59.930421, 30.365931],
-        [59.923473, 30.385532]
-    ],
-    'distances': [
-        3060.0,
-        1338.0
-    ],
-}
+insta_point = [51.529396, -0.084685]
 
-street_width = 100 #meters
+insta_radius = 1500
 
-insta_step = 100 #meters
-insta_radius = 70.711
+timezone = pytz.timezone('Europe/London')
 
-timezone = pytz.timezone('Europe/Moscow')
-
+#period = {
+#    'start': datetime.datetime(2015, 1, 1),
+#    'end': datetime.datetime(2015, 12, 9),
+#}
 period = {
-    'start': datetime.datetime(2015, 6, 8),
-    'end': datetime.datetime(2015, 6, 15),
+    'start': datetime.datetime(2015, 1, 1),
+    'end': datetime.datetime(2015, 12, 2),
 }
 
 
 insta_auth = {
-    'client_id': os.environ['INSTA_ID'] if 'INSTA_ID' in os.environ else secret.insta_id,
-    'client_secret': os.environ['INSTA_SECRET'] if 'INSTA_SECRET' in os.environ else secret.insta_secret,
+    'client_id': os.environ['INSTA_ID'] if 'INSTA_ID' in os.environ else '',
+    'client_secret': os.environ['INSTA_SECRET'] if 'INSTA_SECRET' in os.environ else ''
 }

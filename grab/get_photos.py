@@ -12,15 +12,13 @@ pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
 
 
 def grab_photos(lat, lng):
-    result = []
-
     period_start = settings.period['start']
-
     max_time = settings.period['end']
 
-    print 'get photos %f %f' % (lat, lng)
-
     while max_time > period_start:
+        result = []
+        print 'get photos %f %f %s' % (lat, lng, max_time)
+
         media = api.media_search(
             lat=lat,
             lng=lng,
@@ -31,37 +29,39 @@ def grab_photos(lat, lng):
 
         if len(media) == 0: break
 
-        for m in media:
-            if m.created_time > period_start: result.append(m)
+        save_photos(media)
 
         max_time = media[-1].created_time
 
     return result
 
 
-def save_photos(insta_step, photos):
+def save_photos(photos):
     c = 0
     for media in photos:
-        try:
-            photo = Photo.create(
-                insta_id = media.id,
-                thumb = media.get_thumbnail_url(),
-                url = media.link,
-                username = media.user.username,
-                insta_filter = media.filter,
-                date = media.created_time,
-                longitude = media.location.point.longitude,
-                latitude = media.location.point.latitude,
-                insta_step = insta_step,
-            )
-        except peewee.IntegrityError:
-            pass
-        else:
-            if hasattr(media, 'tags'):
-                for t in media.tags:
-                    tag, tag_created = Tag.get_or_create(name = pattern.sub('', t.name))
-                    PhotoTag.get_or_create(tag=tag, photo=photo)
-                c += 1
+        if media.created_time > settings.period['start'] and media.location.point != None:
+            try:
+                photo = Photo.create(
+                    insta_id = media.id,
+                    thumb = media.get_thumbnail_url(),
+                    url = media.link,
+                    username = media.user.username,
+                    insta_filter = media.filter,
+                    date = media.created_time,
+                    longitude = media.location.point.longitude,
+                    latitude = media.location.point.latitude,
+                    message = media.caption,
+                    like_count = media.like_count,
+                    user_in_photo_count = len(media.users_in_photo)
+                )
+            except peewee.IntegrityError:
+                pass
+            else:
+                if hasattr(media, 'tags'):
+                    for t in media.tags:
+                        tag, tag_created = Tag.get_or_create(name = pattern.sub('', t.name))
+                        PhotoTag.get_or_create(tag=tag, photo=photo)
+                    c += 1
 
     print 'New media: %d / %d' % (c, len(photos))
 
@@ -70,42 +70,7 @@ def save_photos(insta_step, photos):
 if __name__ == '__main__':
     api = InstagramAPI(**settings.insta_auth)
 
-    step = 0
-
-    all_way = sum(settings.street['distances'])
-    way = 0
-
-    def setNewSection(section):
-        lat = settings.street['points'][section][0]
-        lng = settings.street['points'][section][1]
-        lat_step = settings.street['points'][section + 1][0] - settings.street['points'][section][0]
-        lng_step = settings.street['points'][section + 1][1] - settings.street['points'][section][1]
-        lat_step *= settings.insta_step / settings.street['distances'][section]
-        lng_step *= settings.insta_step / settings.street['distances'][section]
-
-        return lat, lng, lat_step, lng_step
-
-    section = 0
-    lat, lng, lat_step, lng_step = setNewSection(section)
-
-    while way < all_way:
-        print 'Step %d' % step
-        print 'Section %d' % section
-        print 'Way %f' % way
-
-        if way > sum(settings.street['distances'][:section + 1]):
-            section += 1
-            lat, lng, lat_step, lng_step = setNewSection(section)
-
-        try:
-            photos = grab_photos(lat, lng)
-        except InstagramAPIError as ex:
-            print 'Instagram error. Last step: %i' % step
-            break
-
-        save_photos(step, photos)
-
-        step += 1
-        way += settings.insta_step
-        lat += lat_step
-        lng += lng_step
+    try:
+        photos = grab_photos(settings.insta_point[0], settings.insta_point[1])
+    except InstagramAPIError as ex:
+        print 'Instagram error'

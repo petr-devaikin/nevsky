@@ -6,7 +6,7 @@ import settings
 
 from db import Photo
 
-img_path = '../web/source/img/insta/%s.jpg'
+img_path = 'data/img/%s.jpg'
 
 
 def calc_color(photo):
@@ -26,12 +26,14 @@ if __name__ == "__main__":
                 with open(img_path % photo.insta_id, 'wb') as f:
                     r.raw.decode_content = True
                     shutil.copyfileobj(r.raw, f)
-                calc_color(photo)
+                #calc_color(photo)
             else:
-                photo.delete_instance()
                 print 'Cannot download %s' % photo.insta_id
-        elif photo.color == None:
-            calc_color(photo)
+                for pt in list(photo.tags):
+                    pt.delete_instance()
+                photo.delete_instance()
+        #elif photo.color == None:
+        #    calc_color(photo)
 
         counter += 1
         if counter % 100 == 0:
