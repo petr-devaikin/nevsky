@@ -15,6 +15,9 @@ def calc_color(photo):
     photo.color = '%d,%d,%d' % img.getpixel((0, 0))
     photo.save()
 
+def remove_photo(photo):
+    os.remove(img_path % photo.insta_id)
+
 
 if __name__ == "__main__":
     counter = 0

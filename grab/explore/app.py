@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 from db import Photo, Tag, PhotoTag
 from peewee import fn, JOIN
 
+from download_pic import remove_photo
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('application.cfg', silent=True)
@@ -45,6 +46,20 @@ def clean():
     return 'Claened: ' + str(n)
 
 
+@app.route('/remove/<tag_id>')
+def remove(tag_id):
+    tag = Tag.get(Tag.id == tag_id)
+    n = 0
+    for pt in tag.photos:
+        remove_photo(pt.photo)
+        pt.photo.delete_instance()
+        pt.delete_instance()
+        n += 1
+    tag.delete_instance()
+
+    return 'Removed: ' + str(n)
+
+
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
