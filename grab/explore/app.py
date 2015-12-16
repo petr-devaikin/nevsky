@@ -18,7 +18,9 @@ def index():
     empty = Photo.select(Photo, cnt).join(PhotoTag, JOIN.LEFT_OUTER).group_by(Photo)
     empty = empty.having(cnt == 0).count()
 
-    return render_template('tags.html', tags=tags, empty=empty)
+    photos_count = Photo.select().count()
+
+    return render_template('tags.html', tags=tags, empty=empty, photos_count=photos_count)
 
 @app.route('/tag/')
 @app.route('/tag/<hashtag_id>')
@@ -46,20 +48,15 @@ def clean():
     return 'Claened: ' + str(n)
 
 
-@app.route('/remove/<tag_id>')
-def remove(tag_id):
-    tag = Tag.get(Tag.id == tag_id)
-    n = 0
-    for pt in tag.photos:
-        remove_photo(pt.photo)
-        pt.photo.delete_instance()
-        pt.delete_instance()
-        n += 1
-    tag.delete_instance()
+@app.route('/save/<p_id>')
+def save(p_id):
+    photo = Photo.get(Photo.id == p_id)
+    tag, tag_created = Tag.get_or_create(name="pray_for_streetart")
+    PhotoTag.create(photo=photo, tag=tag)
+    return "ok"
 
-    return 'Removed: ' + str(n)
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)

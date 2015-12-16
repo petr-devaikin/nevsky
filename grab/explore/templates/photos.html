@@ -22,8 +22,10 @@
         <h1>{{ tag if tag != None else '/no hashtag/' }} &mdash; {{ photos.count() }}</h1>
         {% for p in photos %}
             <div>
-                <img src="{{ p.photo.thumb }}"/>
-                {% for ph in p.photo.tags %}
+                <a href="{{ url_for('save', p_id=p.id) }}">
+                    <img src="{{ url_for('static', filename='img/' + (p.photo if tag != None else p).insta_id + '.jpg') }}"/>
+                </a>
+                {% for ph in (p.photo if tag != None else p).tags %}
                     <a href="{{ url_for('photos', hashtag_id=ph.tag.id) }}">
                         {{ ph.tag.name }}
                     </a>

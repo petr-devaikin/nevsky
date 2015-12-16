@@ -5,10 +5,6 @@ from db import db, Photo, Tag, PhotoTag
 steps = {}
 
 if __name__ == '__main__':
-    for photo in Photo.select():
-        if not photo.insta_step in steps:
-            steps[photo.insta_step] = []
-        steps[photo.insta_step].append(photo.to_dict())
-
-    with open('../web/js/data.json', 'w') as fp:
-        json.dump(steps, fp)
+    photos = (p.to_dict() for p in Photo.select())
+    with open('data/photos.json', 'w') as fp:
+        json.dump(photos, fp)

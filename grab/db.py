@@ -15,8 +15,9 @@ class Photo(Model):
     message = CharField(null=True)
     like_count = IntegerField()
     user_in_photo_count = IntegerField()
-
-    color = CharField(null=True)
+    avg_color = CharField(null=True)
+    main_color = CharField(null=True)
+    colors = CharField(null=True)
 
     longitude = DoubleField()
     latitude = DoubleField()
@@ -24,10 +25,19 @@ class Photo(Model):
     def to_dict(self):
         return {
             'id': self.insta_id,
-            'color': self.color.split(','),
             'thumb': self.thumb,
             'url': self.url,
             'date': calendar.timegm(self.date.timetuple()),
+            'longitude': self.longitude,
+            'latitude': self.latitude,
+            'avg_color': self.avg_color,
+            'main_color': self.main_color,
+            'palette': self.colors,
+            'username': self.username,
+            'like_count': self.like_count,
+            'filter': self.insta_filter,
+            'message': self.message,
+            'tags': self.tags_array
         }
 
     @staticmethod

@@ -2,7 +2,6 @@ venv/
 web/source/img/insta/
 web/node_modules/
 data/
-data2/
 
 grab/secret.py
 
