@@ -3,6 +3,7 @@ web/source/img/insta/
 web/node_modules/
 
 grab/data/img
+grab/data/aimg
 grab/data/no_tag
 grab/data/pictures.db
 
