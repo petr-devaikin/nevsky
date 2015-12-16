@@ -1,7 +1,12 @@
 venv/
 web/source/img/insta/
 web/node_modules/
-data/
+
+grab/data/img
+grab/data/no_tag
+grab/data/pictures.db
+
+grab/explore/static/img/
 
 grab/secret.py
 
