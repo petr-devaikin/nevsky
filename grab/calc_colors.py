@@ -28,11 +28,11 @@ if __name__ == "__main__":
             p.main_color = '%d,%d,%d' % mc
             p.save()
 
-        #if p.colors == None:
-        #    color_thief = ColorThief(img_path % p.insta_id)
-        #    clrs = color_thief.get_palette(color_count=2, quality=1) # 3 colors!
-        #    p.colors = ' '.join('%d,%d,%d' % c for c in clrs)
-        #    p.save()
+        if p.colors == None:
+            color_thief = ColorThief(img_path % p.insta_id)
+            clrs = color_thief.get_palette(color_count=2, quality=1) # 3 colors!
+            p.colors = ' '.join('%d,%d,%d' % c for c in clrs)
+            p.save()
 
 
 

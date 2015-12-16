@@ -37,7 +37,7 @@ class Photo(Model):
             'like_count': self.like_count,
             'filter': self.insta_filter,
             'message': self.message,
-            'tags': self.tags_array
+            'tags': self.tags_array()
         }
 
     @staticmethod

@@ -36,24 +36,10 @@ def photos(hashtag_id=None):
         photos = hashtag.photos
     return render_template('photos.html', tag=tag_name, photos=photos)
 
-@app.route('/clean')
-def clean():
-    n = 0
-    for pt in PhotoTag.select():
-        try:
-            p = pt.photo
-        except Photo.DoesNotExist:
-            pt.delete_instance()
-            n += 1
-    return 'Claened: ' + str(n)
 
-
-@app.route('/save/<p_id>')
-def save(p_id):
-    photo = Photo.get(Photo.id == p_id)
-    tag, tag_created = Tag.get_or_create(name="pray_for_streetart")
-    PhotoTag.create(photo=photo, tag=tag)
-    return "ok"
+@app.route('/pixels')
+def pixels():
+    return render_template('pixels.html', photos=Photo.select())
 
 
 

@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <style>
+            div {
+                width: 4px;
+                height: 4px;
+                position: relative;
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        {% for p in photos %}
+            <div style="background: rgb({{ p.avg_color }})"></div>
+        {% endfor %}
+    </body>
+</html>
