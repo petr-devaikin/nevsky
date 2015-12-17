@@ -3,6 +3,7 @@
 data: https://github.com/petr-devaikin/stritlife/blob/master/grab/data/photos.json
 
 data structure:
+```json
 [
   {
     "id": "1231231223423_2343423423", // instagram id,
@@ -22,6 +23,7 @@ data structure:
   }
   ...
 ]
+```
 
 ## Links
 
