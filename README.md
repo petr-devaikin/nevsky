@@ -25,6 +25,33 @@ data structure:
 ]
 ```
 
-## Links
+## Web
+
+### Instalation
+
+1. Install SASS http://sass-lang.com/install
+2. Install node.js and npm https://docs.npmjs.com/getting-started/installing-node
+3. To install all dependencies (packages for development) go to web/ and run
+```
+npm install
+```
+
+### Development
+
+Go to web/ and run
+```
+gulp serve
+```
+web site will be opened in web browser.
+
+Web page will be automatically updated if source code is changed. (If you add a new file, restart gulp)
+
+
+### Links
 
 D3: http://d3js.org/
+
+Require.js: http://requirejs.org/
+
+SASS: http://sass-lang.com/documentation/file.SASS_REFERENCE.html
+
