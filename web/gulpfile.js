@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat');
 
- 
+
 gulp.task('clean', function () {
     return gulp.src(['./public/*', '!./public/.gitignore'], {read: false})
         .pipe(clean());

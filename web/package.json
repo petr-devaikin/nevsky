@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "nevsky",
-  "description": "Nevsky Instagram Visualization",
-  "repository": "https://github.com/petr-devaikin/nevsky",
+  "name": "streetart",
+  "description": "Shoreditch Streetart Photos Visualization",
+  "repository": "https://github.com/petr-devaikin/stritlife",
   "license": "GPL",
   "devDependencies": {
     "browser-sync": "^1.8.2",

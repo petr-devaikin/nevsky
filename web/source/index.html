@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Nevsky</title>
+        <title>Shoreditch Streetart</title>
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
 
-        <script src="js/require.js"></script>
+        <script src="js/lib/require.js"></script>
         <script>
             var version = (new Date()).getTime();
             requirejs.config({
                 baseUrl: "js",
                 urlArgs: "v=" + version,
                 paths: {
-                    'libs/d3': "d3.min",
+                    'lib/d3': "lib/d3.min",
                 },
                 //    jquery: 'jquery-2.1.1.min'
                 //},
@@ -24,22 +24,6 @@
         </script>
     </head>
     <body>
-        <div id="street-map">
-            <div id="street-map__inner">
-                <div id="street-line"></div>
-                <div id="landmarks"></div>
-            </div>
-            <div class="steps"></div>
-            </div>
-        </div>
-
-        <div id="allPhotos" class="photos">
-        </div>
-
-        <div id="hourPhotos" class="photos">
-        </div>
-
-        <div id="weekPhotos" class="photos">
-        </div>
+        <h1>Shoreditch Streetart</h1>
     </body>
 </html>
