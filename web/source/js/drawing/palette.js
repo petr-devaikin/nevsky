@@ -7,7 +7,7 @@ define(['lib/d3', 'constants'], function(d3, constants) {
 
     function getPosition(d) {
         var color = d3.rgb('rgb(' + d.main_color + ')').hsl();
-        var alpha = color.s == 0 || color.l == 0 ? 0 : color.h / 180.0 * Math.PI;
+        var alpha = color.s == 0 || color.l == 0 ? 0 : color.h / 180 * Math.PI;
         var r = color.l == 0 ? 0 : 250 * color.s;
 
         return {
