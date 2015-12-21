@@ -1,0 +1,14 @@
+.m-map {
+    position: relative;
+    margin: 10px;
+    width: 800px;
+    height: 500px;
+    background: #000;
+}
+
+.m-map__photo {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border: 1px solid #fff;
+}
