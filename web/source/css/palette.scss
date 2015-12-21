@@ -1,0 +1,25 @@
+.m-palette {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 10px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #000;
+    }
+}
+
+.m-palette__photo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+
+    z-index: 2;
+}

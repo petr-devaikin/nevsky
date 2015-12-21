@@ -1,4 +1,6 @@
 define({
-    maxWidth: 1000,
-    height: 300
+    palette: {
+        width: 1000,
+        height: 500
+    }
 })
