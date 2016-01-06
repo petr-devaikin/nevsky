@@ -1,6 +1,6 @@
 import os
 
-from db import Photo,PhotoTag, Tag
+from db import Photo, PhotoTag, Tag
 
 img_path = 'data/img/%s.jpg'
 

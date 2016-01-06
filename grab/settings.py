@@ -13,8 +13,8 @@ timezone = pytz.timezone('Europe/London')
 #    'end': datetime.datetime(2015, 12, 9),
 #}
 period = {
-    'start': datetime.datetime(2015, 1, 1),
-    'end': datetime.datetime(2015, 12, 2),
+    'start': datetime.datetime(2015, 12, 2),
+    'end': datetime.datetime(2016, 1, 1),
 }
 
 
