@@ -1,4 +1,4 @@
-define(['lib/d3', 'constants'], function(d3, constants) {
+define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
     var container = d3.select('.m-timeline');
 
     function drawBg() {
@@ -41,7 +41,8 @@ define(['lib/d3', 'constants'], function(d3, constants) {
                 .data(function(d) { return d; })
             .enter().append('div')
                 .classed('m-timeline__day__photo', true)
-                .style('background', function (d) { return 'rgb(' + d.main_color + ')'; });
+                .style('background', function (d) { return 'rgb(' + d.main_color + ')'; })
+                .on('mouseover', events.photoHover);
 
         console.log('Timeline: done');
     }

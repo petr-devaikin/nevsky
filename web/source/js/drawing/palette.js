@@ -1,4 +1,4 @@
-define(['lib/d3', 'constants'], function(d3, constants) {
+define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
     var container = d3.select('.m-palette');
 
     function drawBg() {
@@ -29,7 +29,8 @@ define(['lib/d3', 'constants'], function(d3, constants) {
                 .classed('m-palette__photo', true)
                 .style('left', getXPosition)
                 .style('top', getYPosition)
-                .style('background', function(d) { return 'rgb(' + d.main_color + ')'; });
+                .style('background', function(d) { return 'rgb(' + d.main_color + ')'; })
+                .on('mouseover', events.photoHover);
 
         console.log('Palette: done');
     }
