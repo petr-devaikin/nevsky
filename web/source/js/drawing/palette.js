@@ -6,7 +6,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     }
 
     function getPosition(d) {
-        var color = d3.rgb('rgb(' + d.main_color + ')').hsl();
+        var color = d3.rgb(d.main_color).hsl();
         var alpha = color.s == 0 || color.l == 0 ? 0 : color.h / 180 * Math.PI;
         var r = color.l == 0 ? 0 : 250 * color.s;
 
@@ -29,7 +29,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .classed('m-palette__photo', true)
                 .style('left', getXPosition)
                 .style('top', getYPosition)
-                .style('background', function(d) { return 'rgb(' + d.main_color + ')'; })
+                .style('background', function(d) { return d.main_color; })
                 .on('mouseover', events.photoHover);
 
         console.log('Palette: done');

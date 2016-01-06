@@ -20,7 +20,7 @@ if __name__ == "__main__":
                 p.save()
             except IOError:
                 print 'CANNOT OPEN ' + p.insta_id
-                p.delete_instance()
+                #p.delete_instance()
 
         if p.main_color == None:
             color_thief = ColorThief(img_path % p.insta_id)
