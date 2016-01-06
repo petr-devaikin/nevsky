@@ -1,5 +1,6 @@
 import os
 import shutil
+import settings
 
 from db import Photo,PhotoTag, Tag
 
@@ -8,7 +9,7 @@ new_path = 'data/no_tag/%s.jpg'
 
 if __name__ == "__main__":
     n = 0
-    for p in Photo.select():
+    for p in Photo.select().where(Photo.date >= settings.period['start']):
         n += 1
         if n % 100 == 0:
             print 'processed: ' + str(n)
