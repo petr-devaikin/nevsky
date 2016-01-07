@@ -6,8 +6,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         .translate([250, 250])
         .scale(400000);
 
-    var ZOOM = 13;
-
+    var ZOOM = 15;
 
     function drawBg() {
         var mapCentre = new google.maps.LatLng(51.529396, -0.084685);
@@ -23,8 +22,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 stylers: [{ visibility: 'on' }, { lightness: 90 }, { saturation: -100 }],
             },
             { featureType: 'road', stylers: [{ saturation: -100 }], },
-            { featureType: 'road.local', stylers: [{ lightness: 60 }], },
-            { featureType: 'road.arterial', stylers: [{ lightness: 60 }], },
             {
                 elementType: 'geometry.stroke',
                 featureType: 'road.arterial',
@@ -62,12 +59,13 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         map.setMapTypeId('map_style');
 
         function onMapLoaded() {
+            var mapCanvasProjection = overlay.getProjection();
             /*var north = new google.maps.LatLng(MAX_LATITUDE, (MIN_LONGITUDE + MAX_LONGITUDE) / 2),
                 south = new google.maps.LatLng(MIN_LATITUDE, (MIN_LONGITUDE + MAX_LONGITUDE) / 2),
                 west = new google.maps.LatLng((MAX_LATITUDE + MIN_LATITUDE) / 2, MIN_LONGITUDE),
                 east = new google.maps.LatLng((MAX_LATITUDE + MIN_LATITUDE) / 2, MAX_LONGITUDE);
 
-            var mapCanvasProjection = overlay.getProjection();
+
             var northPoint = mapCanvasProjection.fromLatLngToDivPixel(north),
                 southPoint = mapCanvasProjection.fromLatLngToDivPixel(south),
                 westPoint = mapCanvasProjection.fromLatLngToDivPixel(west),
