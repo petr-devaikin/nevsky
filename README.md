@@ -8,13 +8,13 @@ data structure:
   {
     "id": "1231231223423_2343423423",                 // instagram id,
     "thumb": "https://...",                           // image thumb url,
+    "img": "https://...",                           // full image url,
     "url": "https://...",                             // url of photo page
     "date": 1449615364,                               // datetime in unix timestamp format
     "longitude": -0.0801677,
     "latitude": 51.5244331,
-    "avg_color": "12,224,123",                        // average color RGB
-    "main_color": "142,121,224",                      // dominant color RGB
-    "palette": "12,32,232 211,3,122 32,103,43",       // three colors from palette
+    "avg_color": "rgb(12,224,123)",                        // average color RGB
+    "main_color": "rgb(142,121,224)",                      // dominant color RGB
     "username": "sexyuser",                           // author
     "like_count": 12,                                 // number of likes
     "filter": "Crema",                                // photo filter name

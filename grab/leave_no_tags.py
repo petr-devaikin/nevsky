@@ -19,11 +19,6 @@ if __name__ == "__main__":
 
         if p.tags.count() == 0:
             if not os.path.isfile(new_path % p.insta_id):
-                for pt in p.tags:
-                    if pt.tag.photos.count() == 1:
-                        n_tags += 1
-                        pt.tag.delete_instance()
-                    pt.delete_instance()
                 p.delete_instance()
                 removed += 1
             else:

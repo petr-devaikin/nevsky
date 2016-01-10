@@ -23,8 +23,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
         for (var i = 0; i < 365; i++) {
             days[i].sort(function (a, b) {
-                var aColor = d3.rgb('rgb(' + a.main_color + ')'),
-                    bColor = d3.rgb('rgb(' + b.main_color + ')');
+                var aColor = d3.rgb(a.main_color),
+                    bColor = d3.rgb(b.main_color);
 
                 return aColor.hsl().h === NaN || bColor.hsl().h - aColor.hsl().h;
             });
@@ -41,7 +41,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .data(function(d) { return d; })
             .enter().append('div')
                 .classed('m-timeline__day__photo', true)
-                .style('background', function (d) { return 'rgb(' + d.main_color + ')'; })
+                .style('background', function (d) { return d.main_color; })
                 .on('mouseover', events.photoHover);
 
         console.log('Timeline: done');

@@ -5,6 +5,8 @@
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
 
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3QFfD12e_p1RcVvUODt_05_SOc_YFWB0">
+        </script>
         <script src="js/lib/require.js"></script>
         <script>
             var version = (new Date()).getTime();
@@ -20,7 +22,7 @@
 
             require(['main'], function(main) {
                 main();
-            })
+            });
         </script>
     </head>
     <body>
@@ -28,6 +30,7 @@
         <div class="m-palette">
         </div>
         <div class="m-map">
+            <div class="m-map__bg"></div>
         </div>
         <div class="m-timeline">
         </div>
