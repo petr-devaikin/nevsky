@@ -4,7 +4,7 @@ import settings
 
 from db import Photo,PhotoTag, Tag
 
-new_path = 'data/no_tag/%s.jpg'
+new_path = 'data/img/%s.jpg'
 
 if __name__ == "__main__":
     n = 0
@@ -17,12 +17,11 @@ if __name__ == "__main__":
             print 'removed: ' + str(removed)
             print 'left: ' + str(left)
 
-        if p.tags.count() == 0:
-            if not os.path.isfile(new_path % p.insta_id):
-                p.delete_instance()
-                removed += 1
-            else:
-                left += 1
+        if not os.path.isfile(new_path % p.insta_id):
+            p.delete_instance()
+            removed += 1
+        else:
+            left += 1
 
     print 'processed: ' + str(n)
     print 'removed: ' + str(removed)
