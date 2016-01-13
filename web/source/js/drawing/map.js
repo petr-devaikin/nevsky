@@ -86,9 +86,19 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         console.log('Map: start');
         var counter = 0;
 
+        var positions = {}
+
         for (var i = 0; i < data.length; i++) {
             data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
             data[i].position = gProjection.fromLatLngToDivPixel(data[i].latlng);
+
+            var key = data[i].position.x + ',' + data[i].position.y;
+            if (positions[key] === undefined)
+                positions[key] = 0;
+
+            data[i].position.y -= 3 * (Math.floor(positions[key] / 10));
+            data[i].position.x += 3 * (positions[key] % 10);
+            positions[key]++;
         }
 
         container
