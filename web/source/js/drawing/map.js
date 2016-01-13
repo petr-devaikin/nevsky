@@ -3,6 +3,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     var ZOOM = 16;
 
+    var map;
+
     function drawBg(data) {
         var mapCentre = new google.maps.LatLng(51.523663, -0.076783);
 
@@ -41,7 +43,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             disableDoubleClickZoom: true
         };
 
-        var map = new google.maps.Map(document.querySelector(".m-map__bg"), mapOptions);
+        map = new google.maps.Map(document.querySelector(".m-map__bg"), mapOptions);
 
         var overlay = new google.maps.OverlayView();
         overlay.draw = function() {};
@@ -82,26 +84,23 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     function drawData(data, gProjection) {
         console.log('Map: start');
+        var counter = 0;
+
+        for (var i = 0; i < data.length; i++) {
+            data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+            data[i].position = gProjection.fromLatLngToDivPixel(data[i].latlng);
+        }
 
         container
             .selectAll('.m-map__photo')
                 .data(data)
             .enter().append('div')
                 .classed('m-map__photo', true)
-                .style('left', function(d) {
-                    var latlng = new google.maps.LatLng(d.latitude, d.longitude);
-                    var p = gProjection.fromLatLngToDivPixel(latlng);
-                    console.log(p);
-                    return p.x + 'px';
-                })
-                .style('top', function(d) {
-                    var latlng = new google.maps.LatLng(d.latitude, d.longitude);
-                    var p = gProjection.fromLatLngToDivPixel(latlng);
-                    return p.y + 'px';
-                })
+                .style('left', function(d) { return d.position.x + 'px'; })
+                .style('top', function(d) { return d.position.y + 'px'; })
                 .attr("longitude", function(d) { return d.longitude; })
                 .attr("latitude", function(d) { return d.latitude; })
-                .style('background', function(d) { return d.main_color; })
+                //.style('background', function(d) { return d.main_color; })
                 .on('mouseover', events.photoHover);
     }
 
