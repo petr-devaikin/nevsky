@@ -1,8 +1,8 @@
 .m-map {
     position: relative;
     margin: 10px;
-    width: 500px;
-    height: 500px;
+    width: 800px;
+    height: 800px;
     background: #000;
     overflow: hidden;
 }
@@ -18,7 +18,7 @@
 
 .m-map__photo {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     z-index: 2;
 }
