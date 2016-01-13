@@ -110,7 +110,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .style('top', function(d) { return d.position.y + 'px'; })
                 .attr("longitude", function(d) { return d.longitude; })
                 .attr("latitude", function(d) { return d.latitude; })
-                //.style('background', function(d) { return d.main_color; })
+                .style('background', function(d) { return d.main_color; })
                 .on('mouseover', events.photoHover);
     }
 

@@ -21,15 +21,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             days[diffDays].push(data[i]);
         }
 
-        for (var i = 0; i < 365; i++) {
-            days[i].sort(function (a, b) {
-                var aColor = d3.rgb(a.main_color),
-                    bColor = d3.rgb(b.main_color);
-
-                return aColor.hsl().h === NaN || bColor.hsl().h - aColor.hsl().h;
-            });
-        }
-
         var days = container
             .selectAll('.m-timeline__day')
                 .data(days)
