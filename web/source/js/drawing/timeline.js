@@ -19,7 +19,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
 
             days[diffDays].push(data[i]);
-            console.log(days[diffDays]);
+            //console.log(days[diffDays]);
         }
 //sort by hue for each day in part 
         for (var i = 0; i < 365; i++) {
