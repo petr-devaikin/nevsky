@@ -11,17 +11,15 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 height = 500 - margin.top - margin.bottom;
 
             var parseDate = d3.time.format("%Y%m%d").parse;
-
-             data.forEach(function(d) {
-                d.date = parseDate(d.date);
-            });
-            
+                        
+            // data.forEach(function(d) {
+            //     d.date = parseDate(d.date);
+            // });
             //Create scale functions
 
-            var  xScale= d3.time.scale()
-                                .domain(d3.extent(data, function(d) { return d.date; }))
-                                .range([0, width]);    
-             
+            var xScale = d3.time.scale()
+                                .domain([new Date(2015, 1, 1), new Date(2015, 12, 31)])
+                                .range([0, width]);                     
             //Define X axis
             var xAxis = d3.svg.axis()
                               .scale(xScale)
@@ -34,7 +32,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                         .attr("height", height + margin.top + margin.bottom)
                         .append("g")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
             //Create X axis
             svg.append("g")
