@@ -2,6 +2,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     var container = d3.select('.m-map__photos');
 
     var ZOOM = 16;
+    var photoSize = 2;
 
     var map;
 
@@ -84,34 +85,52 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     function drawData(data, gProjection) {
         console.log('Map: start');
-        var counter = 0;
-        return;
 
-        var positions = {}
+        var locations = [];
 
         for (var i = 0; i < data.length; i++) {
             data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
             data[i].position = gProjection.fromLatLngToDivPixel(data[i].latlng);
+            data[i].position.x = Math.round(data[i].position.x);
+            data[i].position.y = Math.round(data[i].position.y);
 
-            var key = data[i].position.x + ',' + data[i].position.y;
-            if (positions[key] === undefined)
-                positions[key] = 0;
+            var location = locations.find(function(a) {
+                return a.x == data[i].position.x && a.y == data[i].position.y;
+            });
 
-            data[i].position.y -= 3 * (Math.floor(positions[key] / 10));
-            data[i].position.x += 3 * (positions[key] % 10);
-            positions[key]++;
+            if (location === undefined) {
+                var newLocation = {
+                    x: data[i].position.x,
+                    y: data[i].position.y,
+                    photos: [data[i]]
+                };
+
+                locations.push(newLocation);
+            }
+            else {
+                location.photos.push(data[i]);
+            }
         }
 
-        container
-            .selectAll('.m-map__photos__photo')
-                .data(data)
+        var locationObjs = container
+            .selectAll('.m-map__photos__location')
+                .data(locations)
             .enter().append('div')
-                .classed('m-map__photos__photo', true)
-                .style('left', function(d) { return d.position.x + 'px'; })
-                .style('top', function(d) { return d.position.y + 'px'; })
-                .attr("longitude", function(d) { return d.longitude; })
-                .attr("latitude", function(d) { return d.latitude; })
+                .classed('m-map__photos__location', true)
+                .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
+                .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
+                .style('margin-top', function(d) { return -Math.sqrt(d.photos.length) * photoSize + 'px'; })
+                .style('left', function(d) { return d.x + 'px'; })
+                .style('top', function(d) { return d.y + 'px'; });
+
+        locationObjs
+            .selectAll('.m-map__photos__location__photo')
+                .data(function(d) { return d.photos; })
+            .enter().append('div')
+                .classed('m-map__photos__location__photo', true)
                 .style('background', function(d) { return d.main_color; })
+                .style('width', function() { return photoSize + 'px'; })
+                .style('height', function() { return photoSize + 'px'; })
                 .on('mouseover', events.photoHover);
     }
 
