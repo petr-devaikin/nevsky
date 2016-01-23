@@ -7,23 +7,23 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     //Width and height
 
             var margin = {top: 20, right: 80, bottom: 30, left: 50},
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                width = 1095 ,
+                height = 400 - margin.top - margin.bottom;
+                squareSize = 3;
 
             var parseDate = d3.time.format("%Y%m%d").parse;
                         
-            // data.forEach(function(d) {
-            //     d.date = parseDate(d.date);
-            // });
             //Create scale functions
+            var zero = new Date(2015, 0, 1, 0, 0, 0, 0);
 
             var xScale = d3.time.scale()
-                                .domain([new Date(2015, 1, 1), new Date(2015, 12, 31)])
+                                .domain([zero, new Date(2016, 0, 1)])
                                 .range([0, width]);                     
             //Define X axis
             var xAxis = d3.svg.axis()
                               .scale(xScale)
-                              .orient("bottom");
+                              .orient("bottom")
+                              .ticks(d3.time.month, 1);
 
             //Create SVG element
             var svg = container
@@ -39,35 +39,43 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 days[i] = [];
             }
 
-        var zero = new Date(2015, 0, 1, 0, 0, 0, 0);
+        
 //puts the data into  days[], ordered by days, each number represents a day of the year
         for (var i = 0; i < data.length; i++) {
             var timeDiff = data[i].date * 1000 - zero.getTime();
-            var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+            data[i].diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+            days[data[i].diffDays].push(data[i]);
 
-            days[diffDays].push(data[i]);
-            console.log(days[diffDays]);
+        }
+        //sort by hue for each day in part 
+        for (var i = 0; i < 365; i++) {
+            days[i].sort(function (a, b) {
+                var aColor = d3.rgb(a.main_color),
+                    bColor = d3.rgb(b.main_color);
+
+                return aColor.hsl().h === NaN || bColor.hsl().h - aColor.hsl().h;
+            });
         }
 
         //creates the div that contains the day square (X axis)
-        var days = container
-            .selectAll('.m-timeline__day')
-                .data(days)
-            .enter().append('div')
-                .classed('m-timeline__day', true)
-                .style('bottom', 500)
-                .style('left', function(d,i) {return i + 3;} );
-//creates the div that contains the color (y axis)
-        days
-            .selectAll('.m-timeline__day__photo')
-                .data(function(d) { return d; })
-            .enter().append('div')
-                .classed('m-timeline__day__photo', true)
-                .style('background', function (d) { return d.main_color; })
-                .style()
-                .on('mouseover', events.photoHover);
+        var days = svg.selectAll('.day')
+                            .data(days)
+                            .enter()
+                            .append('g')
+                            .classed('day', true);
+        var photoSquare = days.selectAll('rect')
+                            .data(function(d) { return d; })
+                            .enter()
+                            .append('rect')
+                            .attr("x", function(d, i) {return d.diffDays * squareSize; })
+                            .attr("y", function(d,i) {return height -5 - i * squareSize;}) 
+                            .attr("height", squareSize )
+                            .attr("width", squareSize)
+                            .style("fill", function(d) { return d.main_color; }) ;
+                
             //Create X axis
             svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
     }
