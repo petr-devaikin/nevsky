@@ -1,5 +1,5 @@
 define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
-    var container = d3.select('.m-map');
+    var container = d3.select('.m-map__photos');
 
     var ZOOM = 16;
 
@@ -85,6 +85,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     function drawData(data, gProjection) {
         console.log('Map: start');
         var counter = 0;
+        return;
 
         var positions = {}
 
@@ -102,10 +103,10 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         }
 
         container
-            .selectAll('.m-map__photo')
+            .selectAll('.m-map__photos__photo')
                 .data(data)
             .enter().append('div')
-                .classed('m-map__photo', true)
+                .classed('m-map__photos__photo', true)
                 .style('left', function(d) { return d.position.x + 'px'; })
                 .style('top', function(d) { return d.position.y + 'px'; })
                 .attr("longitude", function(d) { return d.longitude; })

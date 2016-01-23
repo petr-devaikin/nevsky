@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 define(['lib/d3', 'drawing/palette', 'drawing/map', 'drawing/timelineb'],
         function(d3, drawingPalette, drawingMap, drawingTimelineB) {
+=======
+define(['lib/d3', 'drawing/palette', 'drawing/timeline', 'drawing/map', 'interaction/map_selector'],
+        function(d3, drawingPalette, drawingTimeline, drawingMap, mapSelector) {
+>>>>>>> refs/remotes/origin/master
     return function() {
         d3.json("js/photos.json?v=" + (new Date()).getTime(), function(data) {
             data.sort(function (a, b) {
@@ -12,7 +17,12 @@ define(['lib/d3', 'drawing/palette', 'drawing/map', 'drawing/timelineb'],
             drawingPalette.draw(data);
             // drawingTimeline.draw(data);
             drawingMap.draw(data);
+<<<<<<< HEAD
             drawingTimelineB.draw(data);
+=======
+
+            mapSelector.activate();
+>>>>>>> refs/remotes/origin/master
         });
     }
 })
