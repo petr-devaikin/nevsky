@@ -1,5 +1,6 @@
 define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
     var container = d3.select('.m-map__photos');
+    var containerHeight = container.node().getBoundingClientRect().height;
 
     var ZOOM = 16;
     var photoSize = 2;
@@ -74,26 +75,27 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             google.maps.event.trigger(map, 'resize');
             map.setCenter(mapCentre);
 
-            var point1 = new google.maps.LatLng(51.515820169, 0.071244092);
-            var p1 = mapCanvasProjection.fromLatLngToDivPixel(mapCentre);
-            console.log(p1);
-
-            drawData(data, mapCanvasProjection);
+            prepareData(data, mapCanvasProjection);
+            drawData(data);
         }
     }
 
-
-    function drawData(data, gProjection) {
-        console.log('Map: start');
-
-        var locations = [];
-
+    function prepareData(data, gProjection) {
         for (var i = 0; i < data.length; i++) {
             data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
             data[i].position = gProjection.fromLatLngToDivPixel(data[i].latlng);
             data[i].position.x = Math.round(data[i].position.x);
             data[i].position.y = Math.round(data[i].position.y);
+        }
+    }
 
+
+    function drawData(data) {
+        console.log('Map: start');
+
+        var locations = [];
+
+        for (var i = 0; i < data.length; i++) {
             var location = locations.find(function(a) {
                 return a.x == data[i].position.x && a.y == data[i].position.y;
             });
@@ -118,11 +120,11 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             .enter().append('div')
                 .classed('m-map__photos__location', true)
                 .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+                .attr('data-count', function(d) { return d.photos.length; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
-                .style('margin-top', function(d) { return -Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('left', function(d) { return d.x + 'px'; })
-                .style('top', function(d) { return d.y + 'px'; });
+                .style('bottom', function(d) { return containerHeight - d.y + 'px'; });
 
         var locationInnerObjs = locationObjs
             .append('div')
@@ -134,8 +136,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .classed('m-map__photos__location__inner__photo', true)
                 .style('background', function(d) { return d.main_color; })
                 .style('width', function() { return photoSize + 'px'; })
-                .style('height', function() { return photoSize + 'px'; })
-                .on('mouseover', events.photoHover);
+                .style('height', function() { return photoSize + 'px'; });
+                //.on('mouseover', events.photoHover);
     }
 
     function draw(data) {

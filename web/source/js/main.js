@@ -11,7 +11,7 @@ define(['lib/d3', 'drawing/palette', 'drawing/timelineb', 'drawing/map', 'intera
                 return aColor.hsl().h === NaN || bColor.hsl().h - aColor.hsl().h;
             });
 
-            drawingPalette.draw(data);
+            // drawingPalette.draw(data);
             // drawingTimeline.draw(data);
             drawingMap.draw(data);
 
