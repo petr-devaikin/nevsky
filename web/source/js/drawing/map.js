@@ -117,17 +117,21 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .data(locations)
             .enter().append('div')
                 .classed('m-map__photos__location', true)
+                .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('margin-top', function(d) { return -Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('left', function(d) { return d.x + 'px'; })
                 .style('top', function(d) { return d.y + 'px'; });
 
-        locationObjs
-            .selectAll('.m-map__photos__location__photo')
+        var locationInnerObjs = locationObjs
+            .append('div')
+            .classed('m-map__photos__location__inner', true);
+
+        locationInnerObjs.selectAll('.m-map__photos__location__inner__photo')
                 .data(function(d) { return d.photos; })
             .enter().append('div')
-                .classed('m-map__photos__location__photo', true)
+                .classed('m-map__photos__location__inner__photo', true)
                 .style('background', function(d) { return d.main_color; })
                 .style('width', function() { return photoSize + 'px'; })
                 .style('height', function() { return photoSize + 'px'; })
