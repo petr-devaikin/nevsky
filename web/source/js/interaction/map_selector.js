@@ -1,4 +1,4 @@
-define(['lib/d3'], function(d3) {
+define(['lib/d3', 'interaction/updater'], function(d3, updater) {
     var mapContainer = d3.select('.m-map');
     var startPoint = undefined;
 
@@ -6,13 +6,14 @@ define(['lib/d3'], function(d3) {
 
     function hideSelection() {
         mapSelection.style('display', 'none');
+        updater.updateMapFilter(undefined);
     }
 
     function showSelection() {
         mapSelection.style('display', 'block');
     }
 
-    function updateSelection() {
+    function updateSelection(saveFilter) {
         var endPoint = d3.mouse(mapContainer.node());
 
         var x1 = Math.min(startPoint[0], endPoint[0]),
@@ -20,7 +21,7 @@ define(['lib/d3'], function(d3) {
             x2 = Math.max(startPoint[0], endPoint[0]),
             y2 = Math.max(startPoint[1], endPoint[1]);
 
-        if (x1 == x2 || y1 == y2) {
+        if ((x1 == x2 || y1 == y2) && saveFilter !== undefined ) {
             hideSelection();
         }
         else {
@@ -32,6 +33,9 @@ define(['lib/d3'], function(d3) {
             .style('top', y1 + 'px')
             .style('width', (x2 - x1) + 'px')
             .style('height', (y2 - y1) + 'px');
+
+        if (saveFilter !== undefined)
+            updater.updateMapFilter(x1, y1, x2 - x1, y2 - y1);
     }
 
     function activate() {
@@ -44,7 +48,7 @@ define(['lib/d3'], function(d3) {
             d3.event.preventDefault();
 
             if (startPoint !== undefined) {
-                updateSelection();
+                updateSelection(true);
                 startPoint = undefined;
             }
         });

@@ -7,7 +7,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     var map;
 
-    function drawBg(data) {
+    function prepareData(data, callback) {
         var mapCentre = new google.maps.LatLng(51.523663, -0.076783);
 
         var mapStyles = [
@@ -75,17 +75,14 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             google.maps.event.trigger(map, 'resize');
             map.setCenter(mapCentre);
 
-            prepareData(data, mapCanvasProjection);
-            drawData(data);
-        }
-    }
+            for (var i = 0; i < data.length; i++) {
+                data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+                data[i].position = mapCanvasProjection.fromLatLngToDivPixel(data[i].latlng);
+                data[i].position.x = Math.round(data[i].position.x);
+                data[i].position.y = Math.round(data[i].position.y);
+            }
 
-    function prepareData(data, gProjection) {
-        for (var i = 0; i < data.length; i++) {
-            data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
-            data[i].position = gProjection.fromLatLngToDivPixel(data[i].latlng);
-            data[i].position.x = Math.round(data[i].position.x);
-            data[i].position.y = Math.round(data[i].position.y);
+            callback();
         }
     }
 
@@ -140,12 +137,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 //.on('mouseover', events.photoHover);
     }
 
-    function draw(data) {
-        drawBg(data);
-        //drawData(data);
-    }
-
     return {
-        draw: draw,
+        prepareData: prepareData,
+        draw: drawData,
     }
 });

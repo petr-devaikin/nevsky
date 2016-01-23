@@ -1,6 +1,6 @@
 
-define(['lib/d3', 'drawing/palette', 'drawing/timelineb', 'drawing/map', 'interaction/map_selector'],
-        function(d3, drawingPalette, drawingTimelineB, drawingMap, mapSelector) {
+define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'interaction/map_selector', 'interaction/updater'],
+        function(d3, drawingTimeline, drawingMap, mapSelector, updater) {
 
     return function() {
         d3.json("js/photos.json?v=" + (new Date()).getTime(), function(data) {
@@ -11,15 +11,14 @@ define(['lib/d3', 'drawing/palette', 'drawing/timelineb', 'drawing/map', 'intera
                 return aColor.hsl().h === NaN || bColor.hsl().h - aColor.hsl().h;
             });
 
-            // drawingPalette.draw(data);
-            // drawingTimeline.draw(data);
-            drawingMap.draw(data);
+            drawingTimeline.prepareData(data);
+            drawingMap.prepareData(data, startDrawing);
 
-            drawingTimelineB.draw(data);
+            function startDrawing() {
+                updater.setOriginalData(data);
 
-
-            mapSelector.activate();
-
+                mapSelector.activate();
+            }
         });
     }
 })
