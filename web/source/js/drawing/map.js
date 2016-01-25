@@ -113,7 +113,19 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
         var locationObjs = container
             .selectAll('.m-map__photos__location')
-                .data(locations)
+                .data(locations, function(d) { return d.x + '-' + d.y; });
+
+        locationObjs
+            .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+            .attr('data-count', function(d) { return d.photos.length; })
+                .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
+                .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
+                .style('left', function(d) { return d.x + 'px'; })
+                .style('bottom', function(d) { return containerHeight - d.y + 'px'; });
+
+        locationObjs.exit().remove();
+
+        var newLocationObjs = locationObjs
             .enter().append('div')
                 .classed('m-map__photos__location', true)
                 .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
@@ -123,12 +135,16 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .style('left', function(d) { return d.x + 'px'; })
                 .style('bottom', function(d) { return containerHeight - d.y + 'px'; });
 
-        var locationInnerObjs = locationObjs
+        var locationInnerObjs = newLocationObjs
             .append('div')
             .classed('m-map__photos__location__inner', true);
 
-        locationInnerObjs.selectAll('.m-map__photos__location__inner__photo')
-                .data(function(d) { return d.photos; })
+        var photoObjs = locationInnerObjs.selectAll('.m-map__photos__location__inner__photo')
+                .data(function(d) { return d.photos; }, function(d) { return d.id; });
+
+        photoObjs.exit().remove();
+
+        photoObjs
             .enter().append('div')
                 .classed('m-map__photos__location__inner__photo', true)
                 .style('background', function(d) { return d.main_color; })

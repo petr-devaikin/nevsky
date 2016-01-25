@@ -1,6 +1,7 @@
 
-define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'interaction/map_selector', 'interaction/updater'],
-        function(d3, drawingTimeline, drawingMap, mapSelector, updater) {
+define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'interaction/map_selector', 'interaction/timeline_selector',
+        'interaction/updater'],
+        function(d3, drawingTimeline, drawingMap, mapSelector, timelineSelector, updater) {
 
     return function() {
         d3.json("js/photos.json?v=" + (new Date()).getTime(), function(data) {
@@ -18,6 +19,7 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'interaction/map_selector'
                 updater.setOriginalData(data);
 
                 mapSelector.activate();
+                timelineSelector.activate();
             }
         });
     }
