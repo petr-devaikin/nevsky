@@ -7,9 +7,9 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     //Width and height
 
             var margin = {top: 20, right: 80, bottom: 30, left: 50},
-                width = 1095 ,
-                height = 400 - margin.top - margin.bottom;
-                squareSize = 3;
+                width = 730 ,
+                height = 200 - margin.top - margin.bottom;
+                squareSize = 2;
 
             var parseDate = d3.time.format("%Y%m%d").parse;
                         
