@@ -13,13 +13,13 @@ define(['lib/d3', 'drawing/palette', 'drawing/timelineb', 'drawing/map', 'intera
             });
 
             drawingTimelineB.prepareData(data);
+            drawingPhotos.prepareData(data);
             drawingMap.prepareData(data, startDrawing);
 
             function startDrawing() {
                 updater.setOriginalData(data);
                 mapSelector.activate();
                 timelineSelector.activate();
-                drawingPhotos.draw(data);
             }
         });
     }

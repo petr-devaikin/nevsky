@@ -1,4 +1,4 @@
-define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, map) {
+define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], function(d3, timeline, map, preview) {
     var originalData = [];
 
     var mapFilter = undefined;
@@ -26,6 +26,8 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, ma
             photosData = photosData.filter(mapFilterFunc);
         }
 
+        console.log(mapFilter);
+        console.log(timelineFilter);
         if (timelineFilter !== undefined && timelineFilter.end > timelineFilter.start) {
             mapData = mapData.filter(timelineFilterFunc);
             photosData = photosData.filter(timelineFilterFunc);
@@ -33,6 +35,7 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, ma
 
         map.draw(mapData);
         timeline.draw(timelineData);
+        preview.draw(photosData);
     }
 
     function setOriginalData(data) {

@@ -1,21 +1,26 @@
 define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
-  var container = d3.select('.m-photos__preview');
+    var container = d3.select('.m-photos__preview');
 
-  function drawData(data){
-  	var photos = container.selectAll(".photo")
-  							.data(data.slice(10,100))
-  							.enter()
-  							.append("div")
-  							.classed("photo", true)
-  							.style('background', function(d) { return 'url(' + d.thumb + ')';});
+    function drawData(data){
+        container.selectAll(".photo")
+            .remove();
 
- 	 }
+	    var photos = container.selectAll(".photo")
+			    .data(data.slice(0,100), function(d) { return d.id; });
 
-    function draw(data) {
-        drawData(data);
+        photos.enter()
+			.append("div")
+			.classed("photo", true)
+			.style('background', function(d) { return 'url(' + d.thumb + ')';});
+
+   	}
+
+    function prepareData() {
+
     }
 
     return {
-        draw: draw,
+        prepareData: prepareData,
+        draw: drawData,
     }
 });

@@ -8,7 +8,7 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
 
     function hideSelection() {
         timelineSelection.style('display', 'none');
-        updater.updateMapFilter(undefined);
+        updater.updateTimelineFilter(undefined);
     }
 
     function showSelection() {
