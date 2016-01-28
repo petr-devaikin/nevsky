@@ -1,3 +1,4 @@
+
 define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, constants, events, constants) {
     var container = d3.select('.m-timeline-b svg');
 
@@ -50,6 +51,7 @@ define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, 
         }
 
         //puts the data into  days[], ordered by days, each number represents a day of the year
+
         for (var i = 0; i < data.length; i++) {
             var timeDiff = data[i].date * 1000 - zero.getTime();
             data[i].diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));

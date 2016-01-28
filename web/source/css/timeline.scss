@@ -1,5 +1,9 @@
+
 .m-timeline-b {
     position: relative;
+        width: 60%;
+    float:left;
+    height: 30%;
 }
 
 .m-timeline-b__photos {
@@ -21,4 +25,5 @@
     stroke: none;
     fill: #fff;
     opacity: 0;
+
 }
