@@ -17,3 +17,4 @@ grab/secret.py
 *.pyc
 *.eggs
 *.egg-info/
+web/npm-debug.log

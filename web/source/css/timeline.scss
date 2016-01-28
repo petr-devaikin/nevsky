@@ -1,5 +1,29 @@
-.m-timeline-b{
-    width: 60%;
+
+.m-timeline-b {
+    position: relative;
+        width: 60%;
     float:left;
-    height: 30%:
+    height: 30%;
+}
+
+.m-timeline-b__photos {
+    pointer-events: all;
+}
+
+.m-timeline-b__selection {
+    height: 100%;
+    display: none;
+
+    rect {
+        stroke: #ff0000;
+        strokeWidth: 1;
+        fill: none;
+    }
+}
+
+.m-timeline-b__photos__bg {
+    stroke: none;
+    fill: #fff;
+    opacity: 0;
+
 }
