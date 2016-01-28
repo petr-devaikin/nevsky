@@ -38,7 +38,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     function drawData(newData) {
         var containerSize = container.node().getBoundingClientRect();
         step = Math.floor(containerSize.width / photoSize) * Math.floor(containerSize.height / photoSize) * 3;
-        console.log(step);
 
         limit = step;
         data = newData;

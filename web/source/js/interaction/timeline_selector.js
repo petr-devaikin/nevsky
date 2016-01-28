@@ -3,6 +3,8 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
     var startPoint = undefined;
 
     var timelineSelection = d3.select('.m-timeline-b__selection');
+    var timelineSelectionLeft = d3.select('.m-timeline-b__selection__left');
+    var timelineSelectionRight = d3.select('.m-timeline-b__selection__right');
 
     //timelineSelection.attr('transform', 'translate(50,0)');
 
@@ -32,9 +34,12 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         var startDate = timeline.getScale().invert(x1);
         var endDate = timeline.getScale().invert(x2);
 
-        timelineSelection.select('rect')
-            .attr('transform', 'translate(' + x1 + ',0)')
-            .attr('width', (x2 - x1));
+        timelineSelectionLeft
+            .attr('width', x1);
+
+        timelineSelectionRight
+            .attr('x', x2)
+            .attr('width', constants.timeline.width);
 
         if (saveFilter !== undefined)
             updater.updateTimelineFilter(startDate, endDate);
@@ -44,6 +49,7 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         timelineContainer.on('mousedown', function() {
             d3.event.preventDefault();
             startPoint = d3.mouse(timelineContainer.node());
+            timeline.hideHighlighter();
         });
 
         timelineContainer.on('mouseup', function() {
@@ -61,12 +67,15 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
                 startPoint = undefined;
                 hideSelection();
             }
+            timeline.hideHighlighter();
         });
 
         timelineContainer.on('mousemove', function() {
-            d3.event.preventDefault();
+            //d3.event.preventDefault();
             if (startPoint !== undefined)
                 updateSelection();
+            else
+                timeline.highlightDay(timeline.getScale().invert(d3.mouse(timelineContainer.node())[0]));
         });
     }
 

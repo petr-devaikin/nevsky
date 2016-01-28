@@ -10,8 +10,6 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], functi
     }
 
     function timelineFilterFunc(d) {
-        if (d.date*1000 <= timelineFilter.end.getTime())
-            console.log(d.date*1000 + ' ' + timelineFilter.start.getTime() + ' ' + timelineFilter.end.getTime());
         return d.date*1000 >= timelineFilter.start.getTime() && d.date*1000 <= timelineFilter.end.getTime();
     }
 
@@ -26,8 +24,6 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], functi
             photosData = photosData.filter(mapFilterFunc);
         }
 
-        console.log(mapFilter);
-        console.log(timelineFilter);
         if (timelineFilter !== undefined && timelineFilter.end > timelineFilter.start) {
             mapData = mapData.filter(timelineFilterFunc);
             photosData = photosData.filter(timelineFilterFunc);

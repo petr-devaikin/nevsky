@@ -1,6 +1,6 @@
-
 define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, constants, events, constants) {
     var container = d3.select('.m-timeline-b svg');
+    var highlighter = d3.select('.m-timeline-b__photos__highlighter');
 
     var zero = new Date(2015, 0, 1, 0, 0, 0, 0);
 
@@ -87,9 +87,29 @@ define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, 
             .remove();
     }
 
+    function highlightDay(date) {
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+        highlighter
+            .style('opacity', 1)
+            .attr('transform', 'translate(' + xScale(date) + ',0)');
+
+        highlighter.select('text')
+            .html(date.getDate() + '/' + (date.getMonth() + 1) + '/2015');
+    }
+
+    function hideHighlighter() {
+        highlighter
+            .style('opacity', 0);
+    }
+
     return {
         prepareData: prepareData,
         draw: drawData,
-        getScale: getScale
+        getScale: getScale,
+        highlightDay: highlightDay,
+        hideHighlighter: hideHighlighter
     }
 });
