@@ -76,6 +76,7 @@ define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, 
         // ADD NEW
         photoSquare.enter()
             .append('rect')
+            .classed('m-timeline-b__photos__days__day__photo', true)
             .attr("x", function(d, i) {return d.diffDays * squareSize; })
             .attr("y", function(d,i) {return height -5 - i * squareSize;})
             .attr("height", squareSize )

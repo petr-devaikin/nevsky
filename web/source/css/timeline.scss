@@ -49,3 +49,16 @@
         fill: #000;
     }
 }
+
+.m-timeline-b__photos__photo-selector {
+    opacity: 0;
+
+    rect {
+        opacity: 0.8;
+        fill: #ff0000;
+    }
+
+    text {
+        fill: #000;
+    }
+}

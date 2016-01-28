@@ -18,16 +18,19 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     });
 
     function updateDrawings() {
-        inner.selectAll(".photo")
+        inner.selectAll(".m-photos__set__inner__photo")
             .remove();
 
-        var photos = inner.selectAll(".photo")
+        var photos = inner.selectAll(".m-photos__set__inner__photo")
                 .data(data.slice(0, limit), function(d) { return d.id; });
 
         photos.enter()
             .append("div")
-            .classed("photo", true)
-            .style('background', function(d) { return 'url(' + d.thumb + ')';});
+            .classed("m-photos__set__inner__photo", true)
+            .style('background', function(d) { return 'url(' + d.thumb + ')';})
+            .on('click', function(d) {
+                events.selectPhoto(d.id);
+            });
 
     }
 

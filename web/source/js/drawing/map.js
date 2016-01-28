@@ -4,6 +4,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     var ZOOM = 16;
     var photoSize = 2;
+    var MAP_WIDTH = 800;
+    var MAP_HEIGHT = 800;
 
     var map;
 
@@ -75,12 +77,19 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             google.maps.event.trigger(map, 'resize');
             map.setCenter(mapCentre);
 
+            var newData = [];
+
             for (var i = 0; i < data.length; i++) {
                 data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
                 data[i].position = mapCanvasProjection.fromLatLngToDivPixel(data[i].latlng);
                 data[i].position.x = Math.round(data[i].position.x);
                 data[i].position.y = Math.round(data[i].position.y);
+                if (data[i].position.x >= 0 && data[i].position.x <= MAP_WIDTH &&
+                    data[i].position.y >= 0 && data[i].position.y <= MAP_HEIGHT)
+                    newData.push(data[i]);
             }
+
+            data = newData;
 
             callback();
         }
@@ -155,6 +164,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     return {
         prepareData: prepareData,
-        draw: drawData,
+        draw: drawData
     }
 });

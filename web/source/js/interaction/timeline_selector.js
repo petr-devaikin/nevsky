@@ -71,7 +71,7 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         });
 
         timelineContainer.on('mousemove', function() {
-            //d3.event.preventDefault();
+            d3.event.preventDefault();
             if (startPoint !== undefined)
                 updateSelection();
             else
@@ -79,8 +79,7 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         });
     }
 
-
     return {
-        activate: activate
+        activate: activate,
     }
 });
