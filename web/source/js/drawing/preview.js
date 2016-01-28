@@ -1,22 +1,48 @@
 define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, events) {
-    var container = d3.select('.m-photos__preview');
+    var container = d3.select('.m-photos__set');
+    var inner = d3.select('.m-photos__set__inner');
+    var data;
+    var limit = 0;
+    var step = 100;
 
-    function drawData(data){
-        container.selectAll(".photo")
+    var photoSize = 170;
+
+    container.on('scroll', function() {
+        var scrollPosition = container.node().scrollTop;
+        var containerHeight = container.node().getBoundingClientRect().height;
+        var innerHeight = inner.node().getBoundingClientRect().height;
+        if (scrollPosition + containerHeight + 200 > innerHeight) {
+            limit += step;
+            updateDrawings();
+        }
+    });
+
+    function updateDrawings() {
+        inner.selectAll(".photo")
             .remove();
 
-	    var photos = container.selectAll(".photo")
-			    .data(data.slice(0,100), function(d) { return d.id; });
+        var photos = inner.selectAll(".photo")
+                .data(data.slice(0, limit), function(d) { return d.id; });
 
         photos.enter()
-			.append("div")
-			.classed("photo", true)
-			.style('background', function(d) { return 'url(' + d.thumb + ')';});
+            .append("div")
+            .classed("photo", true)
+            .style('background', function(d) { return 'url(' + d.thumb + ')';});
 
-   	}
+    }
 
     function prepareData() {
 
+    }
+
+    function drawData(newData) {
+        var containerSize = container.node().getBoundingClientRect();
+        step = Math.floor(containerSize.width / photoSize) * Math.floor(containerSize.height / photoSize) * 3;
+        console.log(step);
+
+        limit = step;
+        data = newData;
+        updateDrawings();
     }
 
     return {
