@@ -89,9 +89,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                     newData.push(data[i]);
             }
 
-            data = newData;
-
-            callback();
+            callback(newData);
         }
     }
 
@@ -125,7 +123,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .data(locations, function(d) { return d.x + '-' + d.y; });
 
         locationObjs
-            .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+            .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 225; })
             .attr('data-count', function(d) { return d.photos.length; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
@@ -137,7 +135,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         var newLocationObjs = locationObjs
             .enter().append('div')
                 .classed('m-map__photos__location', true)
-                .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+                .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 225; })
                 .attr('data-count', function(d) { return d.photos.length; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })

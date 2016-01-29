@@ -34,10 +34,10 @@ define(['lib/d3'],
                 .filter(function(d) { return d.x == photo.datum().position.x && d.y == photo.datum().position.y; });
         d3.select('.m-map__photo-selector')
             .style('display', 'block')
-            .style('top', (location.datum().y - parseFloat(location.style('height'))) + 'px')
-            .style('left', location.datum().x + 'px')
-            .style('width', location.style('width'))
-            .style('height', location.style('height'));
+            .style('top', (location.datum().y - parseFloat(location.style('height')) - 4) + 'px')
+            .style('left', (location.datum().x - 4) + 'px')
+            .style('width', (parseFloat(location.style('width')) + 8) + 'px')
+            .style('height', (parseFloat(location.style('height')) + 8) + 'px');
         console.log('map ' + location.datum().x + ' ' + location.datum().y);
 
 

@@ -1,4 +1,4 @@
-define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], function(d3, updater, timeline, constants) {
+define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants', 'interaction/events'], function(d3, updater, timeline, constants, events) {
     var timelineContainer = d3.select('.m-timeline-b__photos');
     var startPoint = undefined;
 
@@ -74,6 +74,7 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
             d3.event.preventDefault();
             startPoint = d3.mouse(timelineContainer.node());
             timeline.hideHighlighter();
+            events.deselectPhoto();
         });
 
         timelineContainer.on('mouseup', function() {

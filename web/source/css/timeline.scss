@@ -86,13 +86,20 @@
 
 .m-timeline-b__photos__photo-selector {
     opacity: 0;
+    z-index: 90;
+
+    line {
+        stroke: #9D0B5D;
+        stroke-width: 1.7;
+    }
 
     rect {
-        opacity: 0.8;
-        fill: #ff0000;
+        stroke: #9D0B5D;
+        stroke-width: 1;
+        fill: none;
     }
 
     text {
-        fill: #000;
+        fill: #CC3679;
     }
 }

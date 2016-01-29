@@ -16,8 +16,8 @@ define(['lib/d3', 'drawing/palette', 'drawing/timelineb', 'drawing/map', 'intera
             drawingPhotos.prepareData(data);
             drawingMap.prepareData(data, startDrawing);
 
-            function startDrawing() {
-                updater.setOriginalData(data);
+            function startDrawing(newData) {
+                updater.setOriginalData(newData);
                 mapSelector.activate();
                 timelineSelector.activate();
             }
