@@ -1,4 +1,4 @@
-define(['lib/d3', 'interaction/updater'], function(d3, updater) {
+define(['lib/d3', 'interaction/updater', 'interaction/events'], function(d3, updater, events) {
     var mapContainer = d3.select('.m-map');
     var startPoint = undefined;
 
@@ -49,12 +49,14 @@ define(['lib/d3', 'interaction/updater'], function(d3, updater) {
         mapContainer.on('mousedown', function() {
             d3.event.preventDefault();
             startPoint = d3.mouse(mapContainer.node());
+            events.deselectPhoto();
         });
 
         d3.select('.m-map__photos').on('mousedown', function() {
             console.log('asdasd');
             d3.event.preventDefault();
             startPoint = d3.mouse(mapContainer.node());
+            events.deselectPhoto();
         });
 
         mapContainer.on('mouseup', function() {
