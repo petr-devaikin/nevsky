@@ -2,6 +2,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
   var container = d3.select('.m-photos__preview');
 
   function drawData(data){
+
+
   	var photos = container.selectAll(".photo")
   							.data(data.slice(10,100))
   							.enter()
