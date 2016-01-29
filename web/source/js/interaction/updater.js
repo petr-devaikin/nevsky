@@ -3,6 +3,12 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], functi
 
     var mapFilter = undefined;
     var timelineFilter = undefined;
+    var tagFilter = undefined;
+
+    d3.select('.searchField').on('keyup', function() {
+        tagFilter = d3.select('.searchField').node().value.toUpperCase();
+        update();
+    });
 
     function mapFilterFunc(d) {
         return d.position.x >= mapFilter.x && d.position.x <= mapFilter.x + mapFilter.width &&
@@ -14,9 +20,19 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], functi
     }
 
     function update() {
-        var mapData = originalData;
-        var timelineData = originalData;
-        var photosData = originalData;
+        var tagFilteredData = originalData;
+
+        if (tagFilter !== undefined && tagFilter != "")
+            tagFilteredData = originalData.filter(function(d) {
+                for (var i = 0; i < d.tags.length; i++)
+                    if (d.tags[i].toUpperCase().indexOf(tagFilter) != -1)
+                        return true;
+                return false;
+            });
+
+        var mapData = tagFilteredData;
+        var timelineData = tagFilteredData;
+        var photosData = tagFilteredData;
 
 
         if (mapFilter !== undefined && mapFilter.width > 0 && mapFilter.height > 0) {
