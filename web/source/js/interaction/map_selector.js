@@ -3,6 +3,7 @@ define(['lib/d3', 'interaction/updater'], function(d3, updater) {
     var startPoint = undefined;
 
     var mapSelection = d3.select('.m-map__selection');
+    var topLayer = d3.select('.m-map__photo-selector');
 
     function hideSelection() {
         mapSelection.style('display', 'none');
@@ -39,12 +40,12 @@ define(['lib/d3', 'interaction/updater'], function(d3, updater) {
     }
 
     function activate() {
-        mapContainer.on('mousedown', function() {
+        topLayer.on('mousedown', function() {
             d3.event.preventDefault();
             startPoint = d3.mouse(mapContainer.node());
         });
 
-        mapContainer.on('mouseup', function() {
+        topLayer.on('mouseup', function() {
             d3.event.preventDefault();
 
             if (startPoint !== undefined) {
@@ -53,7 +54,7 @@ define(['lib/d3', 'interaction/updater'], function(d3, updater) {
             }
         });
 
-        mapContainer.on('mouseleave', function() {
+        topLayer.on('mouseleave', function() {
             d3.event.preventDefault();
             if (startPoint !== undefined) {
                 startPoint = undefined;
@@ -61,7 +62,7 @@ define(['lib/d3', 'interaction/updater'], function(d3, updater) {
             }
         });
 
-        mapContainer.on('mousemove', function() {
+        topLayer.on('mousemove', function() {
             d3.event.preventDefault();
             if (startPoint !== undefined)
                 updateSelection();

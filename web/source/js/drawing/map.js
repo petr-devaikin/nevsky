@@ -3,7 +3,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
     var containerHeight = container.node().getBoundingClientRect().height;
 
     var ZOOM = 16;
-    var photoSize = 2;
+    var photoSize = 3;
     var MAP_WIDTH = 800;
     var MAP_HEIGHT = 800;
 

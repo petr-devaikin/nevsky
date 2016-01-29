@@ -29,7 +29,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             .classed("m-photos__set__inner__photo", true)
             .style('background', function(d) { return 'url(' + d.thumb + ')';})
             .on('click', function(d) {
-                events.selectPhoto(d.id);
+                events.selectPhoto(d);
             });
 
     }
