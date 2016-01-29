@@ -5,6 +5,8 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
     var timelineSelection = d3.select('.m-timeline-b__selection');
     var timelineSelectionLeft = d3.select('.m-timeline-b__selection__left');
     var timelineSelectionRight = d3.select('.m-timeline-b__selection__right');
+    var textLeft = d3.select('.m-timeline-b__selection__text-left');
+    var textRight = d3.select('.m-timeline-b__selection__text-right');
 
     //timelineSelection.attr('transform', 'translate(50,0)');
 
@@ -34,12 +36,29 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         var startDate = timeline.getScale().invert(x1);
         var endDate = timeline.getScale().invert(x2);
 
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(0);
+        startDate.setMilliseconds(0);
+        endDate.setHours(0);
+        endDate.setMinutes(0);
+        endDate.setSeconds(0);
+        endDate.setMilliseconds(0);
+
         timelineSelectionLeft
             .attr('width', x1);
+
+        textLeft
+            .attr('x', x1)
+            .html(startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/2015');
 
         timelineSelectionRight
             .attr('x', x2)
             .attr('width', constants.timeline.width);
+
+        textRight
+            .attr('x', x2)
+            .html(endDate.getDate() + '/' + (endDate.getMonth() + 1) + '/2015');
 
         if (saveFilter !== undefined)
             updater.updateTimelineFilter(startDate, endDate);

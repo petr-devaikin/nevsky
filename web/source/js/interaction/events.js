@@ -32,7 +32,7 @@ define(['lib/d3'],
         var location = d3.selectAll('.m-map__photos__location')
                 .filter(function(d) { return d.x == photo.datum().position.x && d.y == photo.datum().position.y; });
         d3.select('.m-map__photo-selector')
-            .style('opacity', 1)
+            .style('display', 'block')
             .style('top', (location.datum().y - parseFloat(location.style('height'))) + 'px')
             .style('left', location.datum().x + 'px')
             .style('width', location.style('width'))
@@ -63,7 +63,7 @@ define(['lib/d3'],
 
         // clear map
         d3.select('.m-map__photo-selector')
-            .style('opacity', 0);
+            .style('display', 'none');
 
         // clear timeline
         d3.select('.m-timeline-b__photos__photo-selector')

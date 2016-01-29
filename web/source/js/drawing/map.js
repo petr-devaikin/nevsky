@@ -13,7 +13,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         var mapCentre = new google.maps.LatLng(51.523663, -0.076783);
 
         var mapStyles = [
-            { elementType: 'labels', stylers: [{ visibility: 'off' }], },
+            { elementType: 'labels', stylers: [{ visibility: 'on' }, { lightness: 80 }], },
             { featureType: 'landscape', stylers: [{ lightness: 100 }], },
             { featureType: 'poi', stylers: [{ visibility: 'off' }], },
             {
