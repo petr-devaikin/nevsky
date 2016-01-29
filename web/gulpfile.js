@@ -19,6 +19,10 @@ gulp.task('css', function () {
         .pipe(concat('style.css'))
         .pipe(gulp.dest('./public/css'))
         .pipe(browserSync.reload({ stream: true }));
+
+    gulp.src(['./source/css/*.ttf'])
+        .pipe(gulp.dest('./public/css'))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 

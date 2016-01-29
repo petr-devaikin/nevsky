@@ -21,10 +21,11 @@ define(['lib/d3'],
         //photo.classed('selected', true);
         d3.select('.m-photos__big').style('display', 'block');
         d3.select('.m-photos__big__photo').style('background', 'url(' + datum.img + ')');
-        if (datum.tags.length > 0)
-            d3.select('.m-photos__big__tags').html('#' + datum.tags.join(" #"));
-        else
-            d3.select('.m-photos__big__tags').html('');
+        var msg = datum.message.substring(datum.message.indexOf('"') + 1);
+        msg = msg.substring(0, msg.length - 2);
+        d3.select('.m-photos__big__desc').html(msg);
+        d3.select('.m-photos__big__user').html(datum.username);
+        d3.select('.m-photos__big__likes').html(datum.like_count);
 
         // select map
         var photo = d3.selectAll('.m-map__photos__location__inner__photo')
