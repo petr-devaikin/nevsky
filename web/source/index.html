@@ -52,8 +52,8 @@
             <svg>
                 <g class="m-timeline-b__photos">
                     <g class="m-timeline-b__photos__highlighter">
-                        <rect x="0" y="0" width="3" height="100%"></rect>
-                        <text x="0" y="0"></text>
+                        <rect x="0" y="35" width="1.7" height="160"></rect>
+                        <text x="0" y="32"></text>
                     </g>
                     <g class="m-timeline-b__photos__photo-selector">
                         <rect x="0" y="0" width="3" height="100%"></rect>
@@ -64,10 +64,18 @@
                     <rect class="m-timeline-b__photos__bg" x="0" y="0" width="100%" height="100%"></rect>
 
                     <g class="m-timeline-b__selection">
-                        <rect x="0" y="0" width="100%" height="100%" class="m-timeline-b__selection__left"></rect>
-                        <rect x="0" y="0" width="100%" height="100%" class="m-timeline-b__selection__right"></rect>
-                        <text class="m-timeline-b__selection__text-left" x="0" y="30"></text>
-                        <text class="m-timeline-b__selection__text-right" x="0" y="30"></text>
+                        <g width="100%" height="100%" class="m-timeline-b__selection__left">
+                            <line x1="0" x2="0" y1="20" y2="195"></line>
+                            <line x1="0" x2="-10" y1="20" y2="20"></line>
+                            <rect x1="0" y1="20" width="0" height="199"></rect>
+                            <text class="m-timeline-b__selection__text-left" x="0" y="10"></text>
+                        </g>
+                        <g width="100%" height="100%" class="m-timeline-b__selection__right">
+                            <line x1="0" x2="0" y1="20" y2="195"></line>
+                            <line x1="0" x2="10" y1="20" y2="20"></line>
+                            <rect x1="0" y1="20" width="100%" height="199"></rect>
+                            <text class="m-timeline-b__selection__text-right" x="0" y="10"></text>
+                        </g>
                     </g>
                 </g>
             </svg>
@@ -75,6 +83,7 @@
 
         <div class="m-photos">
             <div class="m-filter">
+                <span class="counter"></span>
                 <form>
                     <input type="search" class="searchField" placeholder="#SEARCH">
                 </form>

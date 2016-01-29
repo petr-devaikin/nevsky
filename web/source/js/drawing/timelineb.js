@@ -22,7 +22,9 @@ define(['lib/d3', 'constants', 'interaction/events', 'constants'], function(d3, 
     var xAxis = d3.svg.axis()
                       .scale(xScale)
                       .orient("bottom")
-                      .ticks(d3.time.month, 1);
+                      .ticks(d3.time.month, 1)
+                      .tickSize(5, 0)
+                      .tickFormat(d3.time.format("%b"));
 
     //Size
     container

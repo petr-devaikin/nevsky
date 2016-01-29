@@ -46,18 +46,23 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         endDate.setMilliseconds(0);
 
         timelineSelectionLeft
+            .attr('transform', 'translate(0,0)');
+
+        timelineSelectionLeft.selectAll('line')
+            .attr('transform', 'translate(' + x1 + ',0)');
+        timelineSelectionLeft.select('text')
+            .attr('transform', 'translate(' + x1 + ',0)');
+        timelineSelectionLeft.select('rect')
             .attr('width', x1);
 
         textLeft
-            .attr('x', x1)
             .html(startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/2015');
 
         timelineSelectionRight
-            .attr('x', x2)
+            .attr('transform', 'translate(' + x2 + ',0)')
             .attr('width', constants.timeline.width);
 
         textRight
-            .attr('x', x2)
             .html(endDate.getDate() + '/' + (endDate.getMonth() + 1) + '/2015');
 
         if (saveFilter !== undefined)
