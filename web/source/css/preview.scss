@@ -83,6 +83,13 @@
 	font-size: 14px;
 }
 
+.m-photos__big__inner {
+	position: relative;
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .m-photos__big__photo {
 	position: relative;
 	max-width: 640px;
@@ -121,8 +128,8 @@
 
 .m-photos__big__close {
 	position: absolute;
-	right: 20px;
-	top: 20px;
+	right: 0px;
+	top: -40px;
 	color: #fff;
 	text-decoration: none;
 }

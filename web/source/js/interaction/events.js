@@ -21,7 +21,7 @@ define(['lib/d3'],
         //photo.classed('selected', true);
         d3.select('.m-photos__big').style('display', 'block');
         d3.select('.m-photos__big__photo').style('background', 'url(' + datum.img + ')');
-        var msg = datum.message.substring(datum.message.indexOf('"') + 1);
+        var msg = (datum.message != null) ? datum.message.substring(datum.message.indexOf('"') + 1) : '';
         msg = msg.substring(0, msg.length - 2);
         d3.select('.m-photos__big__desc').html(msg);
         d3.select('.m-photos__big__user').html(datum.username);
