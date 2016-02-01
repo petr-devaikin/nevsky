@@ -1,14 +1,18 @@
-define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], function(d3, updater, timeline, constants) {
+define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants', 'interaction/events'], function(d3, updater, timeline, constants, events) {
     var timelineContainer = d3.select('.m-timeline-b__photos');
     var startPoint = undefined;
 
     var timelineSelection = d3.select('.m-timeline-b__selection');
+    var timelineSelectionLeft = d3.select('.m-timeline-b__selection__left');
+    var timelineSelectionRight = d3.select('.m-timeline-b__selection__right');
+    var textLeft = d3.select('.m-timeline-b__selection__text-left');
+    var textRight = d3.select('.m-timeline-b__selection__text-right');
 
     //timelineSelection.attr('transform', 'translate(50,0)');
 
     function hideSelection() {
         timelineSelection.style('display', 'none');
-        updater.updateMapFilter(undefined);
+        updater.updateTimelineFilter(undefined);
     }
 
     function showSelection() {
@@ -32,9 +36,34 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         var startDate = timeline.getScale().invert(x1);
         var endDate = timeline.getScale().invert(x2);
 
-        timelineSelection.select('rect')
-            .attr('transform', 'translate(' + x1 + ',0)')
-            .attr('width', (x2 - x1));
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(0);
+        startDate.setMilliseconds(0);
+        endDate.setHours(0);
+        endDate.setMinutes(0);
+        endDate.setSeconds(0);
+        endDate.setMilliseconds(0);
+
+        timelineSelectionLeft
+            .attr('transform', 'translate(0,0)');
+
+        timelineSelectionLeft.selectAll('line')
+            .attr('transform', 'translate(' + x1 + ',0)');
+        timelineSelectionLeft.select('text')
+            .attr('transform', 'translate(' + x1 + ',0)');
+        timelineSelectionLeft.select('rect')
+            .attr('width', x1);
+
+        textLeft
+            .html(startDate.getDate() + '/' + (startDate.getMonth() + 1) + '/2015');
+
+        timelineSelectionRight
+            .attr('transform', 'translate(' + x2 + ',0)')
+            .attr('width', constants.timeline.width);
+
+        textRight
+            .html(endDate.getDate() + '/' + (endDate.getMonth() + 1) + '/2015');
 
         if (saveFilter !== undefined)
             updater.updateTimelineFilter(startDate, endDate);
@@ -44,6 +73,8 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
         timelineContainer.on('mousedown', function() {
             d3.event.preventDefault();
             startPoint = d3.mouse(timelineContainer.node());
+            timeline.hideHighlighter();
+            events.deselectPhoto();
         });
 
         timelineContainer.on('mouseup', function() {
@@ -61,17 +92,19 @@ define(['lib/d3', 'interaction/updater', 'drawing/timelineb', 'constants'], func
                 startPoint = undefined;
                 hideSelection();
             }
+            timeline.hideHighlighter();
         });
 
         timelineContainer.on('mousemove', function() {
             d3.event.preventDefault();
             if (startPoint !== undefined)
                 updateSelection();
+            else
+                timeline.highlightDay(timeline.getScale().invert(d3.mouse(timelineContainer.node())[0]));
         });
     }
 
-
     return {
-        activate: activate
+        activate: activate,
     }
 });

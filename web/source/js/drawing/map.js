@@ -4,6 +4,8 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     var ZOOM = 16;
     var photoSize = 2;
+    var MAP_WIDTH = 621;
+    var MAP_HEIGHT = 621;
 
     var map;
 
@@ -11,7 +13,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         var mapCentre = new google.maps.LatLng(51.523663, -0.076783);
 
         var mapStyles = [
-            { elementType: 'labels', stylers: [{ visibility: 'off' }], },
+            { elementType: 'labels', stylers: [{ visibility: 'on' }, { lightness: 80 }], },
             { featureType: 'landscape', stylers: [{ lightness: 100 }], },
             { featureType: 'poi', stylers: [{ visibility: 'off' }], },
             {
@@ -75,14 +77,19 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
             google.maps.event.trigger(map, 'resize');
             map.setCenter(mapCentre);
 
+            var newData = [];
+
             for (var i = 0; i < data.length; i++) {
                 data[i].latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
                 data[i].position = mapCanvasProjection.fromLatLngToDivPixel(data[i].latlng);
                 data[i].position.x = Math.round(data[i].position.x);
                 data[i].position.y = Math.round(data[i].position.y);
+                if (data[i].position.x >= 0 && data[i].position.x <= MAP_WIDTH &&
+                    data[i].position.y >= 0 && data[i].position.y <= MAP_HEIGHT)
+                    newData.push(data[i]);
             }
 
-            callback();
+            callback(newData);
         }
     }
 
@@ -116,7 +123,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
                 .data(locations, function(d) { return d.x + '-' + d.y; });
 
         locationObjs
-            .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+            .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 225; })
             .attr('data-count', function(d) { return d.photos.length; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
@@ -128,7 +135,7 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
         var newLocationObjs = locationObjs
             .enter().append('div')
                 .classed('m-map__photos__location', true)
-                .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 100; })
+                .classed('m-map__photos__location--minified', function(d) { return d.photos.length > 225; })
                 .attr('data-count', function(d) { return d.photos.length; })
                 .style('width', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
                 .style('height', function(d) { return Math.sqrt(d.photos.length) * photoSize + 'px'; })
@@ -155,6 +162,6 @@ define(['lib/d3', 'constants', 'interaction/events'], function(d3, constants, ev
 
     return {
         prepareData: prepareData,
-        draw: drawData,
+        draw: drawData
     }
 });

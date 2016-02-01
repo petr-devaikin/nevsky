@@ -1,7 +1,22 @@
+@font-face {
+    font-family: urban;
+    src: url(Urban.ttf);
+}
+
 body, html {
     padding: 0;
-    margin: 0
+    margin: 0;
     height: 100%;
+    font-family: Arial;
+}
+
+h1 {
+    font-family: urban, Arial;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 42px;
+    margin: 22px 20px 0;
+    color: #222;
 }
 
 body {

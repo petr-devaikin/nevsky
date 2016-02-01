@@ -1,8 +1,14 @@
-define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, map) {
+define(['lib/d3', 'drawing/timelineb', 'drawing/map', 'drawing/preview'], function(d3, timeline, map, preview) {
     var originalData = [];
 
     var mapFilter = undefined;
     var timelineFilter = undefined;
+    var tagFilter = undefined;
+
+    d3.select('.searchField').on('keyup', function() {
+        tagFilter = d3.select('.searchField').node().value.toUpperCase();
+        update();
+    });
 
     function mapFilterFunc(d) {
         return d.position.x >= mapFilter.x && d.position.x <= mapFilter.x + mapFilter.width &&
@@ -10,15 +16,23 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, ma
     }
 
     function timelineFilterFunc(d) {
-        if (d.date*1000 <= timelineFilter.end.getTime())
-            console.log(d.date*1000 + ' ' + timelineFilter.start.getTime() + ' ' + timelineFilter.end.getTime());
         return d.date*1000 >= timelineFilter.start.getTime() && d.date*1000 <= timelineFilter.end.getTime();
     }
 
     function update() {
-        var mapData = originalData;
-        var timelineData = originalData;
-        var photosData = originalData;
+        var tagFilteredData = originalData;
+
+        if (tagFilter !== undefined && tagFilter != "")
+            tagFilteredData = originalData.filter(function(d) {
+                for (var i = 0; i < d.tags.length; i++)
+                    if (d.tags[i].toUpperCase().indexOf(tagFilter) != -1)
+                        return true;
+                return false;
+            });
+
+        var mapData = tagFilteredData;
+        var timelineData = tagFilteredData;
+        var photosData = tagFilteredData;
 
 
         if (mapFilter !== undefined && mapFilter.width > 0 && mapFilter.height > 0) {
@@ -33,6 +47,7 @@ define(['lib/d3', 'drawing/timelineb', 'drawing/map'], function(d3, timeline, ma
 
         map.draw(mapData);
         timeline.draw(timelineData);
+        preview.draw(photosData);
     }
 
     function setOriginalData(data) {
