@@ -40,7 +40,7 @@ define(['lib/d3'],
             .style('height', (parseFloat(location.style('height')) + 8) + 'px');
         console.log('map ' + location.datum().x + ' ' + location.datum().y);
 
-
+        var format = d3.time.format("%d %B %Y");
         // select timeline
         var photo = d3.selectAll('.m-timeline-b__photos__days__day__photo')
                 .filter(function(d) { return d.id == id; });
@@ -52,8 +52,13 @@ define(['lib/d3'],
         d3.select('.m-timeline-b__photos__photo-selector')
             .style('opacity', 1)
             .attr('transform', 'translate(' + photo.attr('x') + ',0)');
+        d3.select('.m-timeline-b__photos__photo-selector').select('line')
+            .attr('y2', photo.attr('y'));
+            console.log(photo.attr('y'));
+        d3.select('.m-timeline-b__photos__photo-selector').select('rect')
+            .attr('y', photo.attr('y'))
         d3.select('.m-timeline-b__photos__photo-selector').select('text')
-            .html(date.getDate() + '/' + (date.getMonth() + 1) + '/2015');
+            .html(format(date));
     }
 
     function clearSelection() {

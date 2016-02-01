@@ -23,6 +23,10 @@ gulp.task('css', function () {
     gulp.src(['./source/css/*.ttf'])
         .pipe(gulp.dest('./public/css'))
         .pipe(browserSync.reload({ stream: true }));
+
+    gulp.src(['./source/css/*.otf'])
+        .pipe(gulp.dest('./public/css'))
+        .pipe(browserSync.reload({ stream: true }));
 });
 
 

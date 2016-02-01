@@ -28,13 +28,13 @@
 
 .searchField{
 	position: absolute;
-	right: 95px;
+	right: 25px;
 	top: 12px;
-	width: 220px;
+	width: 150px;
 	padding: 5px 7px;
 	font-family: dense;
 	background-color: #E6E6E6;
-	color:#808080;
+	color: #808080;
 	float: right;
 	border: none;
 	font-size: 25px;
@@ -98,6 +98,7 @@
 	box-sizing: initial;
 	margin-top: 40px;
 	margin-bottom: 20px;
+	background-size: cover;
 }
 
 .m-photos__big__meta {
