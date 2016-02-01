@@ -100,11 +100,11 @@ $selectionOutsideBg: rgba(250, 250, 250, .6);
     &:after {
         content: attr(data-count);
         position: absolute;
-        bottom: -15px;
-        left: 0px;
-        font-size: 12px;
+        bottom: -20px;
+        left: 2px;
+        font-size: 20px;
         font-weight: bold;
-        color: #333;
+        color:black;
         padding: 1 1px;
         background: rgba(235, 235, 235, 0.5);
     }

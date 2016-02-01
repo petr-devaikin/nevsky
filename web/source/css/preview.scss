@@ -15,8 +15,8 @@
 	.counter {
 		position: absolute;
 		left: 20px;
-		top: 23px;
-		font-size: 14px;
+		top: 18px;
+		font-size: 25px;
 		color: #ccc;
 		text-transform: uppercase;
 
@@ -28,15 +28,16 @@
 
 .searchField{
 	position: absolute;
-	right: 20px;
-	top: 16px;
-	width: 200px;
+	right: 95px;
+	top: 12px;
+	width: 220px;
 	padding: 5px 7px;
-	background-color: #ECF0F1;
+	font-family: dense;
+	background-color: #E6E6E6;
+	color:#808080;
 	float: right;
 	border: none;
-	text-transform: uppercase;
-	font-size: 14px;
+	font-size: 25px;
 
 }
 
@@ -79,8 +80,8 @@
 	z-index: 100;
 	overflow: auto;
 	padding: 20px;
-	color: #999;
-	font-size: 14px;
+	color: #E6E6E6;
+	font-size: 30px;
 }
 
 .m-photos__big__inner {
@@ -132,4 +133,8 @@
 	top: -40px;
 	color: #fff;
 	text-decoration: none;
+	font-size: 30px;
+	&:hover {
+        color:#9E005D;
+    }
 }
